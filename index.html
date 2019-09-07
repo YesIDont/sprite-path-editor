@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Sprite Editor</title>
+    
+    <script src="lib/imagetracer_v1.2.5.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  
+  <body>
+    <div id='UI'>
+      <div id="expansion">
+        <!-- input acts here as a hover item for burger menu -->
+        <!-- <input type='checkbox' id='expansion-button'/> -->
+        <!-- burger stripes -->
+        <!-- <span></span>
+        <span></span>
+        <span></span> -->
+        <div id="tools">
+          <button
+            class="tool select"
+            tooltip="Select and drag points.">
+              <img src='img/icons/select.svg' alt='Pan Camera' /></button>
+
+          <button
+            class="tool pan-viewport"
+            tooltip="Pan Camera (Viewport). Hold space bar alternatively.">
+              <img src='img/icons/pan-viewport.svg' alt='Pan Camera' /></button>
+
+          <button
+            class="tool zoom-in"
+            tooltip="Zoom in Camera. Use mouse scroll alternatively.">
+              <img src='img/icons/zoom-in.svg' alt='Zoom In' /></button>
+
+          <button
+            class="tool zoom-out"
+            tooltip="Zoom out Camera. Use mouse scroll alternatively.">
+              <img src='img/icons/zoom-out.svg' alt='Zoom Out' /></button>
+        </div>
+
+        <div id="content">
+          Tips:
+          <ul>
+            <li>hold spacebar and drag the workspace to pan the image</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <canvas id='canvas'></canvas>
+    
+    <script src="js/requestAnimationFrame.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/draw.js"></script>
+    <script src="js/point.js"></script>
+    <script src="js/path.js"></script>
+    <script src="js/loaded-image.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/mouse.js"></script>
+
+    <script>
+      let scale = 3,
+          currentImage, selectedPoint;
+
+      let tools = Array.from( document.getElementsByClassName('tool'));
+      // prevSelection is used to hold the last selected item and unselect it when next item is selected
+      let prevSelection;
+      tools.forEach( tool => {
+        tool.addEventListener('click', () => {
+          if( prevSelection ) prevSelection.classList.toggle('tool-selected');
+          tool.classList.toggle('tool-selected');
+          prevSelection = tool;
+        })
+      });
+
+      let select = document.getElementsByClassName('select')[0];
+      select.addEventListener('click', () => {
+        canvas.cleanPermissions();
+        canvas.allowSelection = true;
+      });
+      // select selection tool at the start
+      select.classList.toggle('tool-selected');
+      prevSelection = select;
+
+      let pan = document.getElementsByClassName('pan-viewport')[0];
+      pan.addEventListener('click', () => {
+        canvas.cleanPermissions();
+        canvas.allowPanDragging = true;
+      });
+
+      let zoomIn = document.getElementsByClassName('zoom-in')[0];
+      zoomIn.addEventListener('click', () => {
+        canvas.cleanPermissions();
+        canvas.allowZoomIn = true;
+      });
+
+      let zoomOut = document.getElementsByClassName('zoom-out')[0];
+      zoomOut.addEventListener('click', () => {
+        canvas.cleanPermissions();
+        canvas.allowZoomOut = true;
+      });
+
+      // @loop
+      function updateWorkspace() {
+        c.setTransform( 1, 0, 0, 1, 0, 0 );
+        c.clearRect( 0, 0, canvas.width, canvas.height );
+        c.translate( canvas.offset.x, canvas.offset.y )
+        
+        // coursors
+        if( 32 in keysDown || canvas.allowPanDragging ) canvas.className = 'cursor-move'
+        else if ( canvas.allowZoomIn ) canvas.className = 'cursor-zoom-in'
+        else if ( canvas.allowZoomOut ) canvas.className = 'cursor-zoom-out'
+        else canvas.className = '';
+
+        currentImage.draw();
+        currentImage.drawPaths();
+
+        if( selectedPoint ) {
+          const { x, y } = selectedPoint.getCanvasPos();
+          Draw.circle( x, y, 5, { fill: '#ff2200' } );
+        }
+
+        requestAnimationFrame( updateWorkspace );
+      }
+      
+      window.addEventListener('load', () => {
+        console.log('Window finished loading.');
+
+        currentImage = new LoadedImage( 'dummy.png' );
+        canvas.offset.set(
+          ( canvas.width / 2 ) - ( currentImage.image.width / 2 * scale ),
+          ( canvas.height / 2 ) - ( currentImage.image.height / 2 * scale )
+        )
+
+        updateWorkspace();
+      });
+    </script>
+
+  </body>
+</html>

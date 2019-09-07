@@ -77,7 +77,10 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     let lastNumber = 0;
     for( let i = 0; i < path.length; i++ ) {
       if( i % 2 !== 0 ) {
-        points.push( new Point( parseFloat(lastNumber), parseFloat(path[i])))
+        points.push( new Point(
+          parseFloat(lastNumber),
+          parseFloat(path[i])
+        ));
       }
       else {
         lastNumber = path[ i ];
@@ -99,16 +102,16 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
   }
 
   // remove duplicate paths
-  // for( let i = 0; i < paths.length; i++ ) {
-  //   if(
-  //     paths.length > 1 &&
-  //     // paths have the same length
-  //     paths[i].points.length === paths[i + 1].points.length
-  //   ){
-  //     paths.splice( i, 1 );
-  //     i--
-  //   }
-  // }
+  for( let i = 0; i < paths.length; i++ ) {
+    if(
+      paths.length > 1 &&
+      // paths have the same length
+      paths[i].points.length === paths[i + 1].points.length
+    ){
+      paths.splice( i, 1 );
+      i--
+    }
+  }
   return paths
 }
 

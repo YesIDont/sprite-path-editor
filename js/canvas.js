@@ -3,11 +3,14 @@ canvas.allowSelection = true;
 canvas.allowPanDragging = false;
 canvas.allowZoomIn = false;
 canvas.allowZoomOut = false;
+canvas.allowPointDelete = false;
 
 canvas.cleanPermissions = function() {
+  this.allowSelection = false;
   this.allowPanDragging = false;
   this.allowZoomIn = false;
   this.allowZoomOut = false;
+  this.allowPointDelete = false;
 }
 
 canvas.zoom = function( e ) {

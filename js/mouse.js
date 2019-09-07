@@ -33,7 +33,7 @@ function mouseMove( e ) {
 
   let isColliding = false
   // check if mouse is coliding with any of points
-  if( currentImage && !mouse.isDown.left && canvas.allowSelection ) {
+  if( currentImage && !mouse.isDown.left && ( canvas.allowSelection || canvas.allowPointDelete )) {
     currentImage.paths.forEach( path => {
       path.points.forEach( point => {
         if( point.isCollidingWithMouse() ) {
@@ -61,7 +61,14 @@ function mouseMove( e ) {
 }
 
 function mouseDown() { mouse.isDown.left = true; };
-function mouseUp() { mouse.isDown.left = false };
+function mouseUp() {
+  mouse.isDown.left = false;
+  if( selectedPoint && canvas.allowPointDelete ) {
+    currentImage.paths[0].points.splice( currentImage.paths[0].points.findIndex( point => {
+      return point.x === selectedPoint.x && point.y === selectedPoint.y
+    }), 1 )
+  }
+};
 
 document.addEventListener( "mousemove", mouseMove );
 document.addEventListener( "mouseup", mouseUp );

@@ -26,6 +26,11 @@
               <img src='img/icons/select.svg' alt='Pan Camera' /></button>
 
           <button
+            class="tool select-remove"
+            tooltip="Remove point.">
+              <img src='img/icons/select-remove.svg' alt='Remove point' /></button>
+
+          <button
             class="tool pan-viewport"
             tooltip="Pan Camera (Viewport). Hold space bar alternatively.">
               <img src='img/icons/pan-viewport.svg' alt='Pan Camera' /></button>
@@ -90,6 +95,12 @@
       select.classList.toggle('tool-selected');
       prevSelection = select;
 
+      let selectRemove = document.getElementsByClassName('select-remove')[0];
+      selectRemove.addEventListener('click', () => {
+        canvas.cleanPermissions();
+        canvas.allowPointDelete = true;
+      });
+
       let pan = document.getElementsByClassName('pan-viewport')[0];
       pan.addEventListener('click', () => {
         canvas.cleanPermissions();
@@ -132,9 +143,7 @@
       }
       
       window.addEventListener('load', () => {
-        console.log('Window finished loading.');
-
-        currentImage = new LoadedImage( 'dummy.png' );
+        currentImage = new LoadedImage( 'guy.png' );
         canvas.offset.set(
           ( canvas.width / 2 ) - ( currentImage.image.width / 2 * scale ),
           ( canvas.height / 2 ) - ( currentImage.image.height / 2 * scale )

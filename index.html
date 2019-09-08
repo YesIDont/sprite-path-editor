@@ -11,51 +11,40 @@
   </head>
   
   <body>
-    <div id='UI'>
-      <div id="expansion">
-        <!-- input acts here as a hover item for burger menu -->
-        <!-- <input type='checkbox' id='expansion-button'/> -->
-        <!-- burger stripes -->
-        <!-- <span></span>
-        <span></span>
-        <span></span> -->
-        <div id="tools">
-          <button
-            class="tool select"
-            tooltip="Select and drag points.">
-              <img src='img/icons/select.svg' alt='Pan Camera' /></button>
+    <div class="panel tools">
+      <button
+        class="ico tool select"
+        tooltip="Select and drag points.">
+          <img src='img/icons/select.svg' alt='Pan Camera' /></button>
 
-          <button
-            class="tool select-remove"
-            tooltip="Remove point.">
-              <img src='img/icons/select-remove.svg' alt='Remove point' /></button>
+      <button
+        class="ico tool select-remove"
+        tooltip="Remove point.">
+          <img src='img/icons/select-remove.svg' alt='Remove point' /></button>
 
-          <button
-            class="tool pan-viewport"
-            tooltip="Pan Camera (Viewport). Hold space bar alternatively.">
-              <img src='img/icons/pan-viewport.svg' alt='Pan Camera' /></button>
+      <button
+        class="ico tool pan-viewport"
+        tooltip="Pan Camera (Viewport). Hold space bar alternatively.">
+          <img src='img/icons/pan-viewport.svg' alt='Pan Camera' /></button>
 
-          <button
-            class="tool zoom-in"
-            tooltip="Zoom in Camera. Use mouse scroll alternatively.">
-              <img src='img/icons/zoom-in.svg' alt='Zoom In' /></button>
+      <button
+        class="ico tool zoom-in"
+        tooltip="Zoom in Camera. Use mouse scroll alternatively.">
+          <img src='img/icons/zoom-in.svg' alt='Zoom In' /></button>
 
-          <button
-            class="tool zoom-out"
-            tooltip="Zoom out Camera. Use mouse scroll alternatively.">
-              <img src='img/icons/zoom-out.svg' alt='Zoom Out' /></button>
-        </div>
+      <button
+        class="ico tool zoom-out"
+        tooltip="Zoom out Camera. Use mouse scroll alternatively.">
+          <img src='img/icons/zoom-out.svg' alt='Zoom Out' /></button>
+    </div>
 
-        <div id="content">
-          Tips:
-          <ul>
-            <li>hold spacebar and drag the workspace to pan the image</li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
+    <div class="panel panel-expandable workspace-settings">
+      <input type='checkbox'/>
+      <button class="ico"><img src='img/icons/settings.svg' alt='Settings' /></button>      
+
+      <div>
+        <h4>Workspace Settings</h4>
+        settings...
       </div>
     </div>
 
@@ -80,8 +69,8 @@
       let prevSelection;
       tools.forEach( tool => {
         tool.addEventListener('click', () => {
-          if( prevSelection ) prevSelection.classList.toggle('tool-selected');
-          tool.classList.toggle('tool-selected');
+          if( prevSelection ) prevSelection.classList.toggle('icon-selected');
+          tool.classList.toggle('icon-selected');
           prevSelection = tool;
         })
       });
@@ -92,7 +81,7 @@
         canvas.allowSelection = true;
       });
       // select selection tool at the start
-      select.classList.toggle('tool-selected');
+      select.classList.toggle('icon-selected');
       prevSelection = select;
 
       let selectRemove = document.getElementsByClassName('select-remove')[0];

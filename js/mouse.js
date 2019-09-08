@@ -1,39 +1,41 @@
-let mouse = {
-  x: 0,
-  y: 0,
-  xLast: 0,
-  yLast: 0,
-  isDown: {
+const Pointer = function() {
+  this.x =  0;
+  this.y = 0,
+  this.xLast = 0,
+  this.yLast = 0,
+  this.isDown = {
     left: false,
     right: false
-  },
-  getPos: function( e ) {
-    return {
-      x: e.pageX || e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft,
-      y: e.pageY || e.clientY + document.body.scrollTop + document.documentElement.scrollTop
-    }
-  },
-  getScaledPos: function() {
-    return {
-      x: ( this.x - this.xLast ) / scale,
-      y: ( this.y - this.yLast ) / scale
-    }
   }
 }
 
-function mouseMove( e ) {
+Pointer.prototype.getPos = function( e ) {
+  return {
+    x: e.pageX || e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft,
+    y: e.pageY || e.clientY + document.body.scrollTop + document.documentElement.scrollTop
+  }
+};
+
+Pointer.prototype.getScaledPos = function() {
+  return {
+    x: ( this.x - this.xLast ) / scale,
+    y: ( this.y - this.yLast ) / scale
+  }
+};
+
+Pointer.prototype.move = function( e ) {
   e = e || window.event;
-  mouse.xLast = mouse.x;
-  mouse.yLast = mouse.y;
+  this.xLast = this.x;
+  this.yLast = this.y;
 
-  const { x, y } = mouse.getPos( e );
+  const { x, y } = this.getPos( e );
 
-  mouse.x = x;
-  mouse.y = y;
+  this.x = x;
+  this.y = y;
 
   let isColliding = false
-  // check if mouse is coliding with any of points
-  if( currentImage && !mouse.isDown.left && ( canvas.allowSelection || canvas.allowPointDelete )) {
+  // check if Mouse is coliding with any of points
+  if( currentImage && !this.isDown.left && ( canvas.allowSelection || canvas.allowPointDelete )) {
     currentImage.paths.forEach( path => {
       path.points.forEach( point => {
         if( point.isCollidingWithMouse() ) {
@@ -43,26 +45,29 @@ function mouseMove( e ) {
       })
     })
   }
-  if( !isColliding && !mouse.isDown.left ) selectedPoint = false;
+  if( !isColliding && !this.isDown.left ) selectedPoint = false;
 
-  // left mouse click events
-  if( mouse.isDown.left ) {
+  // left Mouse click events
+  if( this.isDown.left ) {
     if( selectedPoint && canvas.allowSelection ) {
-      const { x, y } = mouse.getScaledPos();
+      const { x, y } = this.getScaledPos();
       selectedPoint.add( x, y )
     }
 
-    // pan the camera if left mouse button and space bar are down
+    // pan the camera if left Mouse button and space bar are down
     else if( 32 in keysDown || canvas.allowPanDragging ) {
-      canvas.offset.x -= ( mouse.xLast - mouse.x ) * 0.5;
-      canvas.offset.y -= ( mouse.yLast - mouse.y ) * 0.5;
+      canvas.offset.x -= ( this.xLast - this.x ) * 0.5;
+      canvas.offset.y -= ( this.yLast - this.y ) * 0.5;
     }
   }
 }
 
-function mouseDown() { mouse.isDown.left = true; };
-function mouseUp() {
-  mouse.isDown.left = false;
+Pointer.prototype.leftDown = function() {
+  this.isDown.left = true
+};
+
+Pointer.prototype.leftUp = function() {
+  this.isDown.left = false;
   if( selectedPoint && canvas.allowPointDelete ) {
     currentImage.paths[0].points.splice( currentImage.paths[0].points.findIndex( point => {
       return point.x === selectedPoint.x && point.y === selectedPoint.y
@@ -70,6 +75,8 @@ function mouseUp() {
   }
 };
 
-document.addEventListener( "mousemove", mouseMove );
-document.addEventListener( "mouseup", mouseUp );
-document.addEventListener( "mousedown", mouseDown );
+let Mouse = new Pointer();
+
+document.addEventListener( "mousemove", () => Mouse.move()     );
+document.addEventListener( "mouseup",   () => Mouse.leftUp()   );
+document.addEventListener( "mousedown", () => Mouse.leftDown() );

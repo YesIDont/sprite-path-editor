@@ -14,7 +14,7 @@ canvas.cleanPermissions = function() {
 }
 
 canvas.zoom = function( e ) {
-  // zoom in / out on wheel if mouse is over canvas
+  // zoom in / out on wheel if Mouse is over canvas
   if( !e.wheelDelta ) {
     if( e === '+' ) scale += 0.25
     else if( e === '-' ) scale -= 0.25
@@ -22,16 +22,16 @@ canvas.zoom = function( e ) {
   else scale = e.wheelDelta > 0 ? scale + 0.25 : scale - 0.25;
 
   // When zooming in or out update canvas offset and push it's center little bit closer
-  // to where the mouse pointer currenlty is.
-  // Below factor divides distance from center of vieport to mouse pointer
+  // to where the Mouse pointer currenlty is.
+  // Below factor divides distance from center of vieport to Mouse pointer
   // allowing for more smooth transition:
   let f = 5;
 
-  if( mouse.x < canvas.width / 2) canvas.offset.x += ( canvas.width / 2 - mouse.x ) / f
-  else canvas.offset.x -= ( mouse.x - canvas.width / 2 ) / f
+  if( Mouse.x < canvas.width / 2) canvas.offset.x += ( canvas.width / 2 - Mouse.x ) / f
+  else canvas.offset.x -= ( Mouse.x - canvas.width / 2 ) / f
 
-  if( mouse.y < canvas.height / 2) canvas.offset.y += ( canvas.height / 2 - mouse.y ) / f
-  else canvas.offset.y -= ( mouse.y - canvas.height / 2 ) / f
+  if( Mouse.y < canvas.height / 2) canvas.offset.y += ( canvas.height / 2 - Mouse.y ) / f
+  else canvas.offset.y -= ( Mouse.y - canvas.height / 2 ) / f
 };
 
 canvas.offset = {

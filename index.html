@@ -91,10 +91,10 @@
         loadedImage.draw();
         loadedImage.drawPaths();
 
-        if( mouse.selection ) {
-          const { x, y } = mouse.selection.getCanvasPos();
-          Draw.circle( x, y, 5, { fill: '#ff2200' } );
-        }
+        const { x, y } = mouse.getCanvasPos();
+        if( mouse.isDown.left && canvas.allow.actions.selection ) mouse.selection.draw();
+        // mouse.selection.startingPoint.draw();
+        Draw.circle( x, y, 3, { stroke: 'red' });
 
         requestAnimationFrame( updateWorkspace );
       }

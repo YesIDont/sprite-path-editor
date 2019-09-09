@@ -54,7 +54,7 @@ button {
   padding: 5px 8px;
   background: #fff;
   color: #444;
-  border-radius: 9px;
+  border-radius: 4px;
   -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
   font-size: 13px;
@@ -155,6 +155,14 @@ input.button + button {
   right: 5px;
 }
 
+.workspace-settings > button:hover {
+  background: transparent;
+}
+
+.workspace-settings > button:after {
+  top: -50px;
+}
+
 .workspace-settings > div > button {
   position: fixed;
   top: 5px;
@@ -170,6 +178,7 @@ input.button + button {
   right: 5px;
   background: #111;
   z-index: 1;
+  border-radius: 15px;
 }
 
 .workspace-settings .background button {
@@ -194,6 +203,8 @@ input.button + button {
 .cursor-zoom-out {
   cursor: url(../img/icons/zoom-out-cursor.png), auto;
 }
+
+.cursor-none { cursor: none };
 
 .bg-dark-1 { background: #111 }
 .bg-dark-2 { background: #222 }

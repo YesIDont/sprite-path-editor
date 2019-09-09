@@ -1,12 +1,13 @@
 const Pointer = function() {
   this.x =  0;
-  this.y = 0,
-  this.xLast = 0,
-  this.yLast = 0,
+  this.y = 0;
+  this.xLast = 0;
+  this.yLast = 0;
   this.isDown = {
     left: false,
     right: false
-  }
+  };
+  this.selection = false;
 }
 
 Pointer.prototype.getPos = function( e ) {
@@ -18,12 +19,13 @@ Pointer.prototype.getPos = function( e ) {
 
 Pointer.prototype.getScaledPos = function() {
   return {
-    x: ( this.x - this.xLast ) / scale,
-    y: ( this.y - this.yLast ) / scale
+    x: ( this.x - this.xLast ) / SETTINGS.scale,
+    y: ( this.y - this.yLast ) / SETTINGS.scale
   }
 };
 
 Pointer.prototype.move = function( e ) {
+  let a = canvas.allow.actions;
   e = e || window.event;
   this.xLast = this.x;
   this.yLast = this.y;
@@ -34,28 +36,28 @@ Pointer.prototype.move = function( e ) {
   this.y = y;
 
   let isColliding = false
-  // check if Mouse is coliding with any of points
-  if( currentImage && !this.isDown.left && ( canvas.allowSelection || canvas.allowPointDelete )) {
-    currentImage.paths.forEach( path => {
+  // check if mouse is coliding with any of points
+  if( loadedImage && !this.isDown.left && ( a.selection || a.pointDelete )) {
+    loadedImage.paths.forEach( path => {
       path.points.forEach( point => {
         if( point.isCollidingWithMouse() ) {
-          selectedPoint = point;
+          mouse.selection = point;
           isColliding = true
         }
       })
     })
   }
-  if( !isColliding && !this.isDown.left ) selectedPoint = false;
+  if( !isColliding && !this.isDown.left ) mouse.selection = false;
 
-  // left Mouse click events
+  // left mouse click events
   if( this.isDown.left ) {
-    if( selectedPoint && canvas.allowSelection ) {
+    if( mouse.selection && a.selection ) {
       const { x, y } = this.getScaledPos();
-      selectedPoint.add( x, y )
+      mouse.selection.add( x, y )
     }
 
-    // pan the camera if left Mouse button and space bar are down
-    else if( 32 in keysDown || canvas.allowPanDragging ) {
+    // pan the camera if left mouse button and space bar are down
+    else if( 32 in keysDown || a.panDragging ) {
       canvas.offset.x -= ( this.xLast - this.x ) * 0.5;
       canvas.offset.y -= ( this.yLast - this.y ) * 0.5;
     }
@@ -68,15 +70,15 @@ Pointer.prototype.leftDown = function() {
 
 Pointer.prototype.leftUp = function() {
   this.isDown.left = false;
-  if( selectedPoint && canvas.allowPointDelete ) {
-    currentImage.paths[0].points.splice( currentImage.paths[0].points.findIndex( point => {
-      return point.x === selectedPoint.x && point.y === selectedPoint.y
+  if( mouse.selection && canvas.allow.actions.pointDelete ) {
+    loadedImage.paths[0].points.splice( loadedImage.paths[0].points.findIndex( point => {
+      return point.x === mouse.selection.x && point.y === mouse.selection.y
     }), 1 )
   }
 };
 
-let Mouse = new Pointer();
+let mouse = new Pointer();
 
-document.addEventListener( "mousemove", () => Mouse.move()     );
-document.addEventListener( "mouseup",   () => Mouse.leftUp()   );
-document.addEventListener( "mousedown", () => Mouse.leftDown() );
+document.addEventListener( "mousemove", () => mouse.move()     );
+document.addEventListener( "mouseup",   () => mouse.leftUp()   );
+document.addEventListener( "mousedown", () => mouse.leftDown() );

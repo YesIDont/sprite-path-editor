@@ -1,88 +1,9 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video, input, button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  z-index: 0;
-  outline: 0;
-}
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
 * {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-}
-
-body {
-  font-family: Sans-Serif;
-  width: 100%;
-  height: 100%;
-  line-height: 1;
-  background: #111;
-  /* background-image:
-    linear-gradient(
-      45deg, 
-    #d1d1d1 25%,
-      transparent 25%
-    ),
-    linear-gradient(
-      -45deg, #d1d1d1 25%,
-      transparent 25%
-    ),
-    linear-gradient(
-      45deg,
-      transparent 75%,
-      #d1d1d1 75%
-    ),
-    linear-gradient(
-      -45deg,
-      transparent 75%,
-      #d1d1d1 75%
-    );
-  background-size: 40px 40px;
-  background-position: 0 0, 0 99.8px, 99.8px -99.8px, -99.8px 0px;
-  background-color: #ffffff; */
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
 }
 
 canvas {
@@ -100,13 +21,16 @@ h2 { font-size: 25px }
 h3 { font-size: 20px }
 h4 { font-size: 18px }
 
+button {
+  cursor: pointer;
+}
+
 .ico {
   width: 25px;
   height: 25px;
   background: none;
   cursor: pointer;
   display: block;
-  margin-bottom: 5px;  
 }
 
 .ico img {
@@ -146,6 +70,22 @@ h4 { font-size: 18px }
   background-color: #222 !important;
 }
 
+input.button {
+  display: block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 3; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+
+input.button + button {
+  -webkit-touch-callout: none;
+  z-index: 2;
+}
+
 .panel {
   font-size: 13px;
   background: #333;
@@ -157,22 +97,6 @@ h4 { font-size: 18px }
   user-select: none;
   /* -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
   box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4); */
-}
-
-.panel > button {
-  -webkit-touch-callout: none;
-  z-index: 2;
-}
-
-.panel > input {
-  display: block;
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  cursor: pointer;
-  opacity: 0; /* hide this */
-  z-index: 3; /* and place it over the hamburger */
-  -webkit-touch-callout: none;
 }
 
 .panel > div {
@@ -195,6 +119,10 @@ h4 { font-size: 18px }
   margin-bottom: 10px;
 }
 
+.panel > div h5 {
+  margin-bottom: 10px;
+}
+
 .panel-expandable {
   background: transparent;
   padding: 5px;
@@ -214,16 +142,6 @@ h4 { font-size: 18px }
   margin-bottom: 5px;
 }
 
-.panel-l {
-  display: block;
-  position: relative;
-  height: calc( 100vh - 10px );
-  z-index: 1;
-  -webkit-user-select: none;
-  user-select: none;
-  padding: 5px;
-}
-
 .workspace-settings {
   position: fixed;
   top: 5px;
@@ -237,6 +155,34 @@ h4 { font-size: 18px }
   right: 5px;
 }
 
+.workspace-settings > div > button {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+}
+
+.workspace-settings-switch-background {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  background: #111;
+  z-index: 1;
+}
+
+.workspace-settings .background button {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.workspace-settings .background button:hover {
+  border: 2px solid #0099ff;
+  transition: none;
+}
+
 .cursor-move {
   cursor: url(../img/icons/pan-viewport-cursor.png), auto;
 }
@@ -247,4 +193,36 @@ h4 { font-size: 18px }
 
 .cursor-zoom-out {
   cursor: url(../img/icons/zoom-out-cursor.png), auto;
+}
+
+.bg-dark-1 { background: #111 }
+.bg-dark-2 { background: #222 }
+.bg-dark-3 { background: #333 }
+.bg-light { background: #999 }
+.bg-white { background: #fff }
+
+.bg-chessboard {
+  background-image:
+    linear-gradient(
+      45deg, 
+    #d1d1d1 25%,
+      transparent 25%
+    ),
+    linear-gradient(
+      -45deg, #d1d1d1 25%,
+      transparent 25%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 75%,
+      #d1d1d1 75%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 75%,
+      #d1d1d1 75%
+    );
+  background-size: 40px 40px;
+  background-position: 0 0, 0 99.8px, 99.8px -99.8px, -99.8px 0px;
+  background-color: #ffffff;
 }

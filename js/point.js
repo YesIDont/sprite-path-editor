@@ -19,11 +19,11 @@ Point.prototype.add = function( x, y ) {
 }
 
 Point.prototype.getCanvasPos = function() {
+  const { scale } = SETTINGS;
   return {
     x: this.x * scale,
     y: this.y * scale
   }
-  return this
 }
 
 Point.prototype.draw = function( color ) {
@@ -43,5 +43,5 @@ Point.prototype.isCollidingWithMouse = function() {
   pos.y += canvas.offset.y;
 
   // return bool indicating if Mouse position collides with point
-  return this.r > utils.compute.twoPointsDistance( Mouse, pos )
+  return this.r > utils.compute.twoPointsDistance( mouse, pos )
 }

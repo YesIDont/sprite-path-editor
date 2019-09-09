@@ -50,6 +50,7 @@ LoadedImage.prototype.draw = function() {
   c.save();
   const { image } = this;
   const { width, height } = image;
+  const { scale } = SETTINGS;
   c.drawImage(
     image,
     0,

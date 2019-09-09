@@ -1,4 +1,5 @@
 const Draw = {
+
   line: function( x, y, a, b, color ) {
     c.save();
     c.strokeStyle = color || 'rgb( 255, 0, 0 )';
@@ -6,6 +7,7 @@ const Draw = {
     c.lineTo( a, b );
     c.restore();
   },
+  
   circle: function( x, y, r, colors ) {
     c.save();
     c.beginPath();

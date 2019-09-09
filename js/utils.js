@@ -1,3 +1,22 @@
+Object.prototype.on = function( event, callback, bubble ) {
+  this.addEventListener( event, callback, bubble || false )
+};
+
+const get = {
+  id: function( name ) {
+    return document.getElementById( name )
+  },
+  class: function( name ) {
+    return Array.from( document.getElementsByClassName( name ))
+  },
+  tag: function( name ) {
+    return Array.from( document.getElementsByTagName( name ))
+  },
+  all: function( name ) {
+    return Array.from( document.querySelectorAll( name ))
+  }
+}
+
 let utils = {
   get: {
     window: {

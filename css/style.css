@@ -206,9 +206,7 @@ input.button + button {
 
 .cursor-none { cursor: none };
 
-.bg-dark-1 { background: #111 }
-.bg-dark-2 { background: #222 }
-.bg-dark-3 { background: #333 }
+.bg-dark  { background: #111 }
 .bg-light { background: #999 }
 .bg-white { background: #fff }
 

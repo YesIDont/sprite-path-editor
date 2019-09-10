@@ -96,23 +96,31 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
 
   // remove paths that have 4 and less points to exclude image border
   for( let i = 0; i < paths.length; i++ ) {
-    if( paths[i].points.length < 5 ) {
+    if( paths[i].points.length === 4 ) {
       paths.splice( i, 1 );
       i--
     }
   }
 
-  // remove duplicate paths
-  for( let i = 0; i < paths.length; i++ ) {
-    if(
-      paths.length > 1 &&
-      // paths have the same length
-      paths[i].points.length === paths[i + 1].points.length
-    ){
-      paths.splice( i, 1 );
-      i--
-    }
-  }
+  // // remove duplicate paths
+  // for( let i = 0; i < paths.length; i++ ) {
+  //   if(
+  //     // next path exists
+  //     paths[i + 1] !== undefined
+  //     // path with current index has length greater than one
+  //     // && paths.length > 1
+  //     // paths have the same length
+  //     && paths[i].points.length === paths[i + 1].points.length
+  //     // paths first point is the same
+  //     // && (
+  //     //   paths[i].points[0].x === paths[i + 1].points[0].x
+  //     //   && paths[i].points[0].y === paths[i + 1].points[0].y
+  //     // )
+  //   ){
+  //     paths.splice( i, 1 );
+  //     i--
+  //   }
+  // }
   return paths
 }
 

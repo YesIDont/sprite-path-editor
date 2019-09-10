@@ -38,7 +38,7 @@ const Selection = function( parrentReference ) {
       y - p.y,
       {
         stroke: 'rgba( 0, 200, 255, 0.8 )',
-        fill: 'rgba( 0, 200, 255, 0.45 )'
+        fill: 'rgba( 0, 200, 255, 0.1 )'
       }
     )
   }

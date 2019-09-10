@@ -7,9 +7,7 @@ const Path = function( points ) {
 Path.prototype.draw = function() {
   Draw.polygon( this.points, { /* fill: this.fillStyle, */ stroke: this.strokeStyle });
 
-  this.points.forEach( point => {
-    point.draw();
-  })
+  this.points.forEach( point =>  point.draw() )
 
   return this
 };

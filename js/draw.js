@@ -43,17 +43,18 @@ const Draw = {
     c.restore();
   },
 
-  rectangle: function( x, y, w, h, colors ) {
+  rectangle: function( x, y, w, h, colors, lw ) {
     c.save();
     c.strokeStyle = colors.stroke || 'rgb( 0,150,255 )';
     c.fillStyle = colors.fill || 'rgba( 0, 150, 255, 0.3 )';
+    c.lineWidth = lw || 1;
 
     if( colors ) {
       if( colors.stroke ) {
         c.strokeRect( x, y, w, h )
-      };
+      }
       if( colors.fill ) {
-        c.rect( x, y, w, h )
+        c.fillRect( x, y, w, h )
       }
     }
     else {

@@ -45,8 +45,12 @@ const Draw = {
 
   rectangle: function( x, y, w, h, colors, lw ) {
     c.save();
-    c.strokeStyle = colors.stroke || 'rgb( 0,150,255 )';
-    c.fillStyle = colors.fill || 'rgba( 0, 150, 255, 0.3 )';
+    c.strokeStyle = 'rgb( 0,150,255 )';
+    c.fillStyle = 'rgba( 0, 150, 255, 0.3 )';
+    if( colors ) {
+      if( colors.stroke ) c.strokeStyle = colors.stroke;
+      if( colors.fill ) c.fillStyle = colors.fill;
+    }
     c.lineWidth = lw || 1;
 
     if( colors ) {

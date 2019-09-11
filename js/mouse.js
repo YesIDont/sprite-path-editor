@@ -98,8 +98,7 @@ Pointer.prototype.move = function( e ) {
       path.points.forEach( point => {
         if( point.isCollidingWithMouse() ) {
           // hightlight point
-          point.fill = 'rgba( 0, 200, 255, 0.25 )';
-          point.r = 6.5;
+          point.isHighlighted = true;
           isColliding = true;
           // if left mouse button is clicked also add point to selection
           // if( this.isDown.left ) {
@@ -107,8 +106,7 @@ Pointer.prototype.move = function( e ) {
           // }
         }
         else {
-          point.fill = false;
-          point.r = 4;
+          point.isHighlighted = false;
         }
       })
     })

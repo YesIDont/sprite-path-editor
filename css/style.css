@@ -112,6 +112,7 @@ input.button + button {
   transform: none;
 }
 
+.panel > h5:first-child,
 .panel > div > h4 {
   display: block;
   padding-bottom: 10px;
@@ -140,6 +141,43 @@ input.button + button {
 .tools .ico {
   display: block;
   margin-bottom: 5px;
+}
+
+.paths {
+  position: fixed;
+  top: 0;
+  left: 35px;
+  height: 100vh;
+  background: #222;
+  width: 200px;
+  overflow: scroll;
+}
+
+.paths .path {
+  display: block;
+  width: 100%;
+  font-size: 11px;
+  line-height: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+  letter-spacing: 1px;
+}
+
+.paths .path input,
+.paths .path span {
+  /* float: left; */
+}
+
+.paths .path input:first-child {
+  /* margin: 1px 1px 1px 1px; */
+}
+
+.paths .path input:last-child {
+  float: right;
+}
+
+.paths p {
+  font-size: 11px;
 }
 
 .workspace-settings {

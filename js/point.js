@@ -1,12 +1,22 @@
 const Point = function( x, y ) {
-  this.x = x;
-  this.y = y;
+  this.x = x || 0;
+  this.y = y || 0;
   // radius
-  this.r = 3;
-  this.stroke = '#0077ff';
-  this.fill = false;
+  this.r = 2.5;
+  this.isSelected = false;
+  this.isHighlighted = false;
   return this
 };
+
+Point.prototype.select = function() {
+  this.isSelected = true;
+  return this
+}
+
+Point.prototype.unSelect = function() {
+  this.isSelected = false;
+  return this
+}
 
 Point.prototype.set = function( x, y ) {
   this.x = x;
@@ -35,7 +45,6 @@ Point.prototype.addV = function( v ) {
 }
 
 Point.prototype.getCanvasPos = function() {
-  const { scale } = SETTINGS;
   return {
     x: this.x * SETTINGS.scale,
     y: this.y * SETTINGS.scale
@@ -43,14 +52,27 @@ Point.prototype.getCanvasPos = function() {
 }
 
 Point.prototype.draw = function() {
-  const { stroke, fill } = this;
   const { x, y } = this.getCanvasPos();
-  let color;
+  let color, r = this.r;
 
-  if( fill ) color = { stroke, fill }
-  else color = { stroke }
+  if( this.isSelected ) {
+    color = {
+      stroke: SETTINGS.colors.point.selected.stroke,
+      fill: SETTINGS.colors.point.selected.fill,
+    }
+  }
+  else if( this.isHighlighted ) {
+    r = 4;
+    color = {
+      stroke: SETTINGS.colors.point.highlighted.stroke,
+      fill: SETTINGS.colors.point.highlighted.fill,
+    }
+  }
+  else {
+    color = { stroke: SETTINGS.colors.point.idle.stroke }
+  }
 
-  Draw.circle( x, y, this.r, color );
+  Draw.circle( x, y, r, color );
 
   return this
 };
@@ -65,4 +87,8 @@ Point.prototype.isCollidingWithMouse = function() {
 
   // return bool indicating if Mouse position collides with point
   return this.r > utils.compute.twoPointsDistance( mouse, pos )
+}
+
+Point.prototype.isCollidingRectangle = function( r, offset ) {
+  return isPointRectColliding( this, r, offset );
 }

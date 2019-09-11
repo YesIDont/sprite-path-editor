@@ -5,7 +5,9 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Sprite Editor</title>
     
+    <!-- libraries -->
     <script src="lib/imagetracer_v1.2.5.js"></script>
+    <script src="lib/smooth-scrollbar.js"></script>
 
     <link type="text/css" rel="stylesheet" href="css/reset.css">
     <link type="text/css" rel="stylesheet" href="css/style.css">
@@ -38,6 +40,10 @@
         tooltip="Zoom out Camera. Use mouse scroll alternatively.">
           <img src='img/icons/zoom-out.svg' alt='Zoom Out' /></button>
     </div>
+    <div class="panel paths">
+      <h5>Paths</h5>
+      <ul></ul>
+    </div>
 
     <span class='workspace-settings-switch-background'></span>
     <div class="panel panel-expandable workspace-settings">
@@ -64,15 +70,16 @@
     <script src="js/canvas.js"></script>
     <script src="js/draw.js"></script>
     <script src="js/point.js"></script>
+    <script src="js/AABB.js"></script>
     <script src="js/path.js"></script>
-    <script src="js/loaded-image.js"></script>    
+    <script src="js/loaded-image.js"></script>
     <script src="js/keyboard.js"></script>
     <script src="js/mouse.js"></script>
     <script src="js/tools.js"></script>
 
     <script>
-      let bgSwitch = get.all('.workspace-settings .background button');
-      bgSwitch.forEach( element => element.on('click', () => get.tag('body')[0].className = element.className ));
+      let bgSwitch = get('.workspace-settings .background button');
+      bgSwitch.forEach( element => element.on('click', () => body.className = element.className ));      
       
       let loadedImage;
 
@@ -90,22 +97,28 @@
 
         // draw loaded image
         loadedImage.draw();
-        // draw all computed paths
+        // draw all computed paths and their points
         loadedImage.drawPaths();
 
         const { x, y } = mouse.getCanvasPos();
         if( mouse.isDown.left && canvas.allow.actions.selection && !( 32 in keysDown )) mouse.selection.draw();
-        // mouse.selection.startingPoint.draw();
-        Draw.circle( x, y, 3, { stroke: 'red' });
 
         requestAnimationFrame( updateWorkspace );
       }
       
       window.on('load', () => {
         loadedImage = new LoadedImage( 'dummy.png' );
+
+        // set initial canvas (vievport) offset used to pan picture
         canvas.offset.set(
           ( canvas.width / 2 ) - ( loadedImage.image.width / 2 * SETTINGS.scale ),
           ( canvas.height / 2 ) - ( loadedImage.image.height / 2 * SETTINGS.scale )
+        )
+
+        // add computed paths to "Paths" panel
+        wait(
+          () => loadedImage.arePathsLoaded(),
+          () => loadedImage.paths.forEach( p => pathsList.add( p ))
         )
 
         updateWorkspace();
@@ -113,4 +126,4 @@
     </script>
 
   </body>
-</html>
+</html> 

@@ -2,19 +2,62 @@ Object.prototype.on = function( event, callback, bubble ) {
   this.addEventListener( event, callback, bubble || false )
 };
 
-const get = {
-  id: function( name ) {
-    return document.getElementById( name )
-  },
-  class: function( name ) {
-    return Array.from( document.getElementsByClassName( name ))
-  },
-  tag: function( name ) {
-    return Array.from( document.getElementsByTagName( name ))
-  },
-  all: function( name ) {
-    return Array.from( document.querySelectorAll( name ))
+const get = function( name ) {
+  return Array.from( document.querySelectorAll( name ))
+}
+
+get.id = function( name ) {
+  return document.getElementById( name )
+};
+
+get.class = function( name ) {
+  return Array.from( document.getElementsByClassName( name ))
+};
+
+get.tag = function( name ) {
+  return Array.from( document.getElementsByTagName( name ))
+};
+
+get.first = function( name ) {
+  return Array.from( document.querySelectorAll( name ))[0]
+};
+
+const add = function( element, content ) {
+  let el = document.createElement( element );
+  
+  if( typeof content === 'string' ) {
+    
   }
+}
+
+const wait = function( condition, callback, time ) {
+  setTimeout(() => {
+    if( condition() ) callback()
+    else wait( condition, callback, time )
+  }, 1);
+}
+
+const body = get.tag('body')[0];
+
+const pathsList  = get('.panel.paths ul')[0];
+
+pathsList.add = function( i ) {
+  let li = document.createElement('li');
+  li.innerHTML = `
+    <input type='checkbox' id='${i.id}'/>
+    <span class='name'>${i.name}</span>
+    <input type='checkbox' id='${i.id}'/>
+  `;
+  // text = document.createTextNode(text);
+  // li.appendChild( text );
+  li.className = 'path';
+  
+  li.children[0].on('click', e => {
+    if( e.target.checked ) loadedImage.paths[ e.target.id ].select()
+    else loadedImage.paths[ e.target.id ].unSelect()
+  })
+  
+  this.appendChild( li )
 }
 
 let utils = {
@@ -45,7 +88,14 @@ let utils = {
       let b = p1.y - p2.y;	
       
       // return distance
-      return Math.sqrt(( a * a ) + ( b * b ));
+      return Math.sqrt(( a * a ) + ( b * b ))
     }
   }
 };
+
+const isPointRectColliding = function( p, r, offset ) {
+  return p.x > r.x - offset
+      && p.y > r.y - offset
+      && p.x < r.x + r.w + ( offset * 2 )
+      && p.y < r.y + r.h + ( offset * 2 )
+}

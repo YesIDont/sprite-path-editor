@@ -40,10 +40,12 @@ const LoadedImage = function( path ) {
       }
     )
     this.paths = this.getPaths( this.svg );
-    // this.draw();
-    // this.drawPaths();
   }
   this.image.src = path;
+}
+
+LoadedImage.prototype.arePathsLoaded = function() {
+  return this.paths.length > 0
 }
 
 LoadedImage.prototype.draw = function() {
@@ -61,6 +63,20 @@ LoadedImage.prototype.draw = function() {
   c.restore();
 }
 
+LoadedImage.prototype.arePathsSimilar = function( path1, path2 ) {
+  // Loop each point in second path, if they are all inside bounding box - remove second path as duplicate.
+  let allPointsWithinBounds = true;
+
+  path2.points.forEach( p => {
+    if( !p.isCollidingRectangle( path1.AABB, 3 )) {
+      allPointsWithinBounds = false
+    }
+  });
+
+  return allPointsWithinBounds
+};
+
+
 LoadedImage.prototype.getPaths = function( svgStr ) {
   let paths = [];
   // console.log(svgStr)
@@ -73,7 +89,7 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
   })
 
   // group numbers in path into points
-  paths = paths.map( path => {
+  paths = paths.map(( path, index ) => {
     let points = [];
     let lastNumber = 0;
     for( let i = 0; i < path.length; i++ ) {
@@ -91,7 +107,7 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     // remove the last point that is used in svg to line the end of the path to it's beggining
     points.pop()
 
-    return new Path( points )
+    return new Path( points, index, `Path ${index}` )
   })
 
   // remove paths that have 4 and less points to exclude image border
@@ -102,25 +118,35 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     }
   }
 
-  // // remove duplicate paths
-  // for( let i = 0; i < paths.length; i++ ) {
-  //   if(
-  //     // next path exists
-  //     paths[i + 1] !== undefined
-  //     // path with current index has length greater than one
-  //     // && paths.length > 1
-  //     // paths have the same length
-  //     && paths[i].points.length === paths[i + 1].points.length
-  //     // paths first point is the same
-  //     // && (
-  //     //   paths[i].points[0].x === paths[i + 1].points[0].x
-  //     //   && paths[i].points[0].y === paths[i + 1].points[0].y
-  //     // )
-  //   ){
-  //     paths.splice( i, 1 );
-  //     i--
-  //   }
-  // }
+  // remove duplicate paths
+
+  for( let i = 0; i < paths.length; i++ ) {
+    let path = paths[ i ];
+
+    // check if path's AABB contains all other paths, if it's does - remove it
+    let containsAll = true;
+    paths.forEach( p => {
+      if( !this.arePathsSimilar( path, p )) containsAll = false
+    });
+
+    if( containsAll ) {
+      paths.splice( i, 1 );
+      continue
+    };
+
+    // check if paths has any similar duplicates and remove them if it does
+    for( let n = i + 1; n < paths.length; n++ ) {
+      if( this.arePathsSimilar( path, paths[ n ] )) {
+        paths.splice( n, 1 );
+        n--
+      }
+    }
+
+  };
+
+  // cicle again all paths and reset their id's to mach
+  paths.forEach(( p, i ) => p.id = i );
+
   return paths
 }
 

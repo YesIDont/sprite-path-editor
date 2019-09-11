@@ -55,19 +55,27 @@ Point.prototype.draw = function() {
   const { x, y } = this.getCanvasPos();
   let color, r = this.r;
 
-  if( this.isSelected ) {
+  if( this.isSelected && this.isHighlighted ) {
+    r = 4;
     color = {
       stroke: SETTINGS.colors.point.selected.stroke,
-      fill: SETTINGS.colors.point.selected.fill,
+      fill: SETTINGS.colors.point.selected.fill
+    }
+  }
+  else if( this.isSelected ) {
+    color = {
+      stroke: SETTINGS.colors.point.selected.stroke,
+      fill: SETTINGS.colors.point.selected.fill
     }
   }
   else if( this.isHighlighted ) {
     r = 4;
     color = {
       stroke: SETTINGS.colors.point.highlighted.stroke,
-      fill: SETTINGS.colors.point.highlighted.fill,
+      fill: SETTINGS.colors.point.highlighted.fill
     }
   }
+  
   else {
     color = { stroke: SETTINGS.colors.point.idle.stroke }
   }

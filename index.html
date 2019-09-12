@@ -41,16 +41,21 @@
           <img src='img/icons/zoom-out.svg' alt='Zoom Out' /></button>
     </div>
     <div class="panel paths">
-      <h5>Paths</h5>
+      <div class="header">
+        <h5>Paths</h5>
+      </div>
       <p class="list-actions children-v-middle">
-        <input type='checkbox' id='select-all'/>
+          <input type='checkbox' id='select-all'/>
+  
+          <button class="ico-small" id='remove-selected' >
+            <img src='img/icons/bin.svg' alt='Remove selected' /></button>
+  
+          <input type='checkbox' id='hide-all'/>
+        </p>
 
-        <button class="ico-small" id='remove-selected' >
-          <img src='img/icons/bin.svg' alt='Remove selected' /></button>
-
-        <input type='checkbox' id='hide-all'/>
-      </p>
-      <ul></ul>
+      <div class='content scrollbar'>
+        <ul></ul>
+      </div>
     </div>
 
     <span class='workspace-settings-switch-background'></span>
@@ -58,7 +63,7 @@
       <input type='checkbox' class='button'/>
       <button class="ico"><img src='img/icons/settings.svg' alt='Settings' /></button>
 
-      <div>
+      <div class='content'>
         <h4>Workspace Settings</h4>
         <span class="background">
           <h5>Background color:</h5>
@@ -86,6 +91,9 @@
     <script src="js/tools.js"></script>
 
     <script>
+      var Scrollbar = window.Scrollbar;
+      Scrollbar.init(document.querySelector('.scrollbar'));
+
       pathsList.add = function( i ) {
         let li = document.createElement('li');
         li.innerHTML = `
@@ -99,7 +107,7 @@
         li.id = i.id;
         
         // select / unselect item
-        li.children[0].on('click', e => { console.log(e.target.id);
+        li.children[0].on('click', e => {
           let item = loadedImage.paths.filter( p => {
             return p.id === parseInt( e.target.id )
           })[0]

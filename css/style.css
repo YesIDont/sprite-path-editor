@@ -81,12 +81,13 @@ button {
 }
 
 .ico-small {
-  width: 15px;
-  height: 15px;
   background: none;
+  width: 21px;
+  height: 21px;
   cursor: pointer;
   display: inline-block;
-  margin: 0 3px;
+  padding: 3px;
+  margin: 0 2px;
 }
 
 .ico-small img {
@@ -95,7 +96,7 @@ button {
 }
 
 .ico-small:hover  {
-  background-color: #222;
+  background: #000000;
 }
 
 input.button {

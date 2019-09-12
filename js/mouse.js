@@ -18,7 +18,12 @@ const Selection = function( parrentReference ) {
   this.removeSelected = function() {
     this.items.forEach( i => {
       // if item is of "path" type
-      if( i.type === 1 ) pathsList.children[ i.id ].remove()
+      if( i.type === 1 ) {
+        for( let n = 0; n < pathsList.children.length; n++ ) {
+          let child = pathsList.children[ n ];
+          if( parseInt( child.id ) === i.id ) {child.remove()
+        }
+      }
       i.remove()
     })
     this.clear()

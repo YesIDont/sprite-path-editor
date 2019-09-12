@@ -40,6 +40,9 @@ const wait = function( condition, callback, time ) {
 const body = get.tag('body')[0];
 
 const pathsList  = get('.panel.paths ul')[0];
+pathsList.getChildren = function() {
+  return Array.from( this.children )
+}
 
 let utils = {
   get: {

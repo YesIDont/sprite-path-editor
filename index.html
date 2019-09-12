@@ -45,9 +45,8 @@
       <p class="list-actions children-v-middle">
         <input type='checkbox' id='select-all'/>
 
-        <button
-          class="ico-small" id='remove-selected' >
-            <img src='img/icons/bin.svg' alt='Remove selected' /></button>
+        <button class="ico-small" id='remove-selected' >
+          <img src='img/icons/bin.svg' alt='Remove selected' /></button>
 
         <input type='checkbox' id='hide-all'/>
       </p>
@@ -100,8 +99,10 @@
         li.id = i.id;
         
         // select / unselect item
-        li.children[0].on('click', e => {
-          let item = loadedImage.paths[ e.target.id ]
+        li.children[0].on('click', e => { console.log(e.target.id);
+          let item = loadedImage.paths.filter( p => {
+            return p.id === parseInt( e.target.id )
+          })[0]
 
           if( e.target.checked ) {
             item.select()
@@ -142,7 +143,7 @@
           })
         }
       });
-
+      
       get('.panel.paths p.list-actions #hide-all')[0].on('click', e => {
         let listItems = Array.from( pathsList.children );
 
@@ -160,6 +161,7 @@
         }
       });
 
+      // remove all selected
       get.id('remove-selected').on('click', () => {
         mouse.selection.removeSelected()
       })

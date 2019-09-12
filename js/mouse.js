@@ -21,7 +21,7 @@ const Selection = function( parrentReference ) {
       if( i.type === 1 ) {
         for( let n = 0; n < pathsList.children.length; n++ ) {
           let child = pathsList.children[ n ];
-          if( parseInt( child.id ) === i.id ) {child.remove()
+          if( parseInt( child.id ) === i.id ) child.remove()
         }
       }
       i.remove()

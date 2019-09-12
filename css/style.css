@@ -172,7 +172,7 @@ input.button + button {
   left: 0;
   width: 25px;
   height: 100vh;
-  padding: 5px;
+  padding: 7px 5px 5px 5px;
 }
 
 .tools .ico {
@@ -190,42 +190,34 @@ input.button + button {
   padding: 0 20px 0 0;
 }
 
-.paths .scroll-content {
-  padding-right: 10px;
-  padding-top: 50px;
-}
-
 .paths > .header {
   height: 11px;
   border-bottom: 1px solid #333222;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 20px;
 }
 
 .paths > .content {
   height: calc( 100vh - 31px );
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 20px;
-  overflow: scroll;
+  padding: 0 25px 0 15px;
 }
 
-.paths > .content > ul {
-  margin-top: 20px;
+.paths ul {
+  margin-top: 40px;
 }
 
 .paths .list-actions {
   position: absolute;
   background: #222;
-  width: 210px;
+  width: 220px;
   display: block;  
-  padding: 10px 20px;  
+  padding: 3px 20px;  
   border-bottom: 1px solid #333222;
   z-index: 3;
 }
 
 .paths #hide-all {
   float: right;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .paths .path {
@@ -233,22 +225,25 @@ input.button + button {
   width: 100%;
   font-size: 11px;
   line-height: 12px;
-  padding: 4px 0;
-  border-bottom: 1px solid #333;
+  padding: 5px;
   letter-spacing: 1px;
+  transition: none;
 }
 
-.paths .path input,
-.paths .path span {
-  /* float: left; */
+.paths .path:not(:last-child) {
+  border-bottom: 1px solid #333;
 }
 
-.paths .path input:first-child {
-  /* margin: 1px 1px 1px 1px; */
+.paths .path:hover {
+  background: #0099ff;
 }
 
 .paths .path input:last-child {
   float: right;
+}
+
+.paths .path .path-selection {
+  margin-right: 3px;
 }
 
 .paths p {

@@ -15,6 +15,11 @@ const Selection = function( parrentReference ) {
     this.items.splice( index, 1 );
   };
 
+  this.clear = function() {
+    this.items = [];
+    return this
+  };
+
   this.removeSelected = function() {
     this.items.forEach( i => {
       // if item is of "path" type
@@ -28,11 +33,6 @@ const Selection = function( parrentReference ) {
     })
     this.clear()
   }
-
-  this.clear = function() {
-    this.items = [];
-    return this
-  };
 
   this.isEmpty = function() {
     return this.items.length <= 0

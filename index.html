@@ -7,10 +7,11 @@
     
     <!-- libraries -->
     <script src="lib/imagetracer_v1.2.5.js"></script>
-    <script src="lib/smooth-scrollbar.js"></script>
+    <script src="lib/simplebar.js"></script>
 
     <link type="text/css" rel="stylesheet" href="css/reset.css">
     <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/simplebar.css">
   </head>
   
   <body>
@@ -91,19 +92,21 @@
     <script src="js/tools.js"></script>
 
     <script>
-      var Scrollbar = window.Scrollbar;
-      Scrollbar.init(document.querySelector('.scrollbar'));
+      let scrolls = [];
+      get('.scrollbar').forEach( el => {
+        scrolls[ el ] = new SimpleBar( el, { forceVisible: true, autoHide: false } )
+      })
 
       pathsList.add = function( i ) {
         let li = document.createElement('li');
         li.innerHTML = `
-          <input type='checkbox' id='${i.id}'/>
+          <input type='checkbox' id='${i.id}' class='path-selection'/>
           <span class='name'>${i.name}</span>
-          <input type='checkbox' id='${i.id}'/>
+          <input type='checkbox' id='${i.id}' class='path-visibility'/>
         `;
         // text = document.createTextNode(text);
         // li.appendChild( text );
-        li.className = 'path';
+        li.className = 'path children-v-middle';
         li.id = i.id;
         
         // select / unselect item
@@ -135,23 +138,28 @@
       bgSwitch.forEach( element => element.on('click', () => body.className = element.className ));
       
       // select / unselect all paths
-      get('.panel.paths p.list-actions #select-all')[0].on('click', e => {
+      get('.paths .list-actions #select-all')[0].on('click', e => {
         let listItems = Array.from( pathsList.children );
 
         if( e.target.checked ) {
-          loadedImage.paths.forEach( p => p.select() )
+          loadedImage.paths.forEach( p => {
+            p.select();
+            mouse.selection.add( p )
+          })
           listItems.forEach( i => {
             i.children[0].checked = true
           })
         }
         else {
-          loadedImage.paths.forEach( p => p.unSelect() )
+          loadedImage.paths.forEach( p => p.unSelect())
           listItems.forEach( i => {
             i.children[0].checked = false
           })
+          mouse.selection.clear()
         }
       });
       
+      // show / hide all
       get('.panel.paths p.list-actions #hide-all')[0].on('click', e => {
         let listItems = Array.from( pathsList.children );
 

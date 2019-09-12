@@ -1,9 +1,13 @@
 const Path = function( points, id, name ) {
+  this.type = 1; // path
+  // reference to parent object
+  this.parent = {};
   this.id = id || 0;
   this.name = name || '';
   this.points = points;
   this.isSelected = false;
   this.isHighlighted = false;
+  this.isVisible = true;
   this.AABB = this.getAABB();
 };
 
@@ -17,6 +21,26 @@ Path.prototype.unSelect = function() {
   this.isSelected = false;
   this.points.forEach( p => p.unSelect() );
   return this
+};
+
+Path.prototype.show = function() {
+  this.isVisible = true;
+  this.points.forEach( p => p.show() );
+  return this
+};
+
+Path.prototype.hide = function() {
+  this.isVisible = false;
+  this.points.forEach( p => p.hide() );
+  return this
+};
+
+Path.prototype.remove = function() {
+  let index = this.parent.findIndex( i => {
+    return i.id === this.id
+  })
+
+  this.parent.splice( index, 1 );
 };
 
 Path.prototype.getAABB = function() {
@@ -52,6 +76,8 @@ Path.prototype.getAABB = function() {
 }
 
 Path.prototype.draw = function() {
+  if( !this.isVisible ) return
+
   let color;
 
   if( this.isSelected )  color = { stroke: SETTINGS.colors.path.selected.stroke }

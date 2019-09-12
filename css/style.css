@@ -1,3 +1,13 @@
+input {
+  width: 11px;
+  height: 11px;
+}
+
+.children-v-middle > * {
+  display: inline;
+  vertical-align: middle;
+}
+
 * {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -70,6 +80,24 @@ button {
   background-color: #222 !important;
 }
 
+.ico-small {
+  width: 15px;
+  height: 15px;
+  background: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.ico-small img {
+  width: 15px;
+  height: 15px;
+}
+
+.ico-small:hover  {
+  background-color: #222;
+}
+
 input.button {
   display: block;
   width: 25px;
@@ -77,7 +105,7 @@ input.button {
   position: absolute;
   cursor: pointer;
   opacity: 0; /* hide this */
-  z-index: 3; /* and place it over the hamburger */
+  z-index: 5; /* and place it over the hamburger */
   -webkit-touch-callout: none;
 }
 
@@ -151,6 +179,17 @@ input.button + button {
   background: #222;
   width: 200px;
   overflow: scroll;
+}
+
+.paths .list-actions {
+  display: block;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #575757;
+  margin-bottom: 5px;
+}
+.paths #hide-all {
+  float: right;
+  margin-top: 2px;
 }
 
 .paths .path {

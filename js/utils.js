@@ -41,25 +41,6 @@ const body = get.tag('body')[0];
 
 const pathsList  = get('.panel.paths ul')[0];
 
-pathsList.add = function( i ) {
-  let li = document.createElement('li');
-  li.innerHTML = `
-    <input type='checkbox' id='${i.id}'/>
-    <span class='name'>${i.name}</span>
-    <input type='checkbox' id='${i.id}'/>
-  `;
-  // text = document.createTextNode(text);
-  // li.appendChild( text );
-  li.className = 'path';
-  
-  li.children[0].on('click', e => {
-    if( e.target.checked ) loadedImage.paths[ e.target.id ].select()
-    else loadedImage.paths[ e.target.id ].unSelect()
-  })
-  
-  this.appendChild( li )
-}
-
 let utils = {
   get: {
     window: {

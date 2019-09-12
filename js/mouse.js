@@ -7,6 +7,23 @@ const Selection = function( parrentReference ) {
     return this
   };
 
+  this.remove = function( beingRemoved ) {
+    let index = this.items.findIndex( i => {
+      return i.id === beingRemoved.id && i.type === beingRemoved
+    })
+
+    this.items.splice( index, 1 );
+  };
+
+  this.removeSelected = function() {
+    this.items.forEach( i => {
+      // if item is of "path" type
+      if( i.type === 1 ) pathsList.children[ i.id ].remove()
+      i.remove()
+    })
+    this.clear()
+  }
+
   this.clear = function() {
     this.items = [];
     return this

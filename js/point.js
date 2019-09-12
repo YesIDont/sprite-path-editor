@@ -1,10 +1,12 @@
 const Point = function( x, y ) {
+  this.type = 0; // point
   this.x = x || 0;
   this.y = y || 0;
   // radius
   this.r = 2.5;
   this.isSelected = false;
   this.isHighlighted = false;
+  this.isVisible = true;
   return this
 };
 
@@ -15,6 +17,16 @@ Point.prototype.select = function() {
 
 Point.prototype.unSelect = function() {
   this.isSelected = false;
+  return this
+}
+
+Point.prototype.show = function() {
+  this.isVisible = true;
+  return this
+}
+
+Point.prototype.hide = function() {
+  this.isVisible = false;
   return this
 }
 
@@ -52,6 +64,8 @@ Point.prototype.getCanvasPos = function() {
 }
 
 Point.prototype.draw = function() {
+  if( !this.isVisible ) return
+
   const { x, y } = this.getCanvasPos();
   let color, r = this.r;
 

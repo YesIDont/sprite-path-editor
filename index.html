@@ -42,6 +42,15 @@
     </div>
     <div class="panel paths">
       <h5>Paths</h5>
+      <p class="list-actions children-v-middle">
+        <input type='checkbox' id='select-all'/>
+
+        <button
+          class="ico-small" id='remove-selected' >
+            <img src='img/icons/bin.svg' alt='Remove selected' /></button>
+
+        <input type='checkbox' id='hide-all'/>
+      </p>
       <ul></ul>
     </div>
 
@@ -78,8 +87,82 @@
     <script src="js/tools.js"></script>
 
     <script>
+      pathsList.add = function( i ) {
+        let li = document.createElement('li');
+        li.innerHTML = `
+          <input type='checkbox' id='${i.id}'/>
+          <span class='name'>${i.name}</span>
+          <input type='checkbox' id='${i.id}'/>
+        `;
+        // text = document.createTextNode(text);
+        // li.appendChild( text );
+        li.className = 'path';
+        li.id = i.id;
+        
+        // select / unselect item
+        li.children[0].on('click', e => {
+          let item = loadedImage.paths[ e.target.id ]
+
+          if( e.target.checked ) {
+            item.select()
+            mouse.selection.add( item )
+          }
+          else {
+            item.unSelect()
+            mouse.selection.remove( item )
+          }
+        })
+
+        // show / hide item
+        li.children[2].on('click', e => {
+          if( e.target.checked ) loadedImage.paths[ e.target.id ].hide()
+          else loadedImage.paths[ e.target.id ].show()
+        })
+        
+        this.appendChild( li )
+      }
+
       let bgSwitch = get('.workspace-settings .background button');
-      bgSwitch.forEach( element => element.on('click', () => body.className = element.className ));      
+      bgSwitch.forEach( element => element.on('click', () => body.className = element.className ));
+      
+      // select / unselect all paths
+      get('.panel.paths p.list-actions #select-all')[0].on('click', e => {
+        let listItems = Array.from( pathsList.children );
+
+        if( e.target.checked ) {
+          loadedImage.paths.forEach( p => p.select() )
+          listItems.forEach( i => {
+            i.children[0].checked = true
+          })
+        }
+        else {
+          loadedImage.paths.forEach( p => p.unSelect() )
+          listItems.forEach( i => {
+            i.children[0].checked = false
+          })
+        }
+      });
+
+      get('.panel.paths p.list-actions #hide-all')[0].on('click', e => {
+        let listItems = Array.from( pathsList.children );
+
+        if( e.target.checked ) {
+          loadedImage.paths.forEach( p => p.hide() )
+          listItems.forEach( i => {
+            i.children[2].checked = true
+          })
+        }
+        else {
+          loadedImage.paths.forEach( p => p.show() )
+          listItems.forEach( i => {
+            i.children[2].checked = false
+          })
+        }
+      });
+
+      get.id('remove-selected').on('click', () => {
+        mouse.selection.removeSelected()
+      })
       
       let loadedImage;
 

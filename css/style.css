@@ -1,3 +1,6 @@
+body {
+  background-color: #111111;
+}
 input {
   width: 11px;
   height: 11px;
@@ -363,22 +366,19 @@ input.switch:checked + span {
   border-radius: 15px;
 }
 
-.workspace-settings .background button {
+.workspace-settings .background span {
+  display: inline-block;
   width: 30px;
   height: 30px;
   margin: 2px;
   transition: none;
+  cursor: pointer;
 }
 
-.workspace-settings .background button.selected {
+/* .workspace-settings .background span:hover {
   border: 2px solid #0099ff;
   background-size: 140%;
-}
-
-.workspace-settings .background button:hover {
-  border: 2px solid #0099ff;
-  background-size: 140%;
-}
+} */
 
 .cursor-move {
   cursor: url(../img/icons/pan-viewport-cursor.png), auto;
@@ -392,12 +392,14 @@ input.switch:checked + span {
   cursor: url(../img/icons/zoom-out-cursor.png), auto;
 }
 
-.cursor-none { cursor: none };
-
-.bg-light { background: #999 }
-.bg-white { background: #fff }
-.bg-dark  { background: #111 }
+.cursor-none { cursor: none }
 
 .bg-chessboard {
-  background: transparent url(../img/chessboard.png) repeat;
+  background-color: transparent;
+  background-repeat: repeat;
+  background-image: url(../img/chessboard.png);
 }
+.bg-white { background: #ffffff }
+.bg-dark  { background: #111111 }
+.bg-pink-red  { background: #ff0099 }
+.bg-green  { background: #44ff44 }

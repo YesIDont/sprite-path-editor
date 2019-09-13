@@ -71,10 +71,11 @@
         <span class='background'>
           <h5>Background color:</h5>
 
-          <input type='radio' value=''>
-          <button class='bg-chessboard'></button>
-          <button class='bg-white'></button>
-          <button class='bg-dark selected'></button>
+          <span class='bg-chessboard'></span>
+          <span class='bg-white'></span>
+          <span class='bg-dark'></span>
+          <span class='bg-pink-red'></span>
+          <span class='bg-green'></span>
         </span>
       </div>
     </div>
@@ -141,8 +142,8 @@
         this.appendChild( li )
       }
 
-      let bgSwitch = get('.workspace-settings .background button');
-      bgSwitch.forEach( element => element.on('click', () => body.className = element.className ));
+      get('.workspace-settings .background span').forEach(
+        element => element.on('click', () => body.className = element.className ));
       
       // select / unselect all paths
       get('.paths .list-actions #select-all')[0].on('click', e => {
@@ -173,13 +174,13 @@
         if( e.target.checked ) {
           loadedImage.paths.forEach( p => p.hide() )
           listItems.forEach( i => {
-            i.children[2].checked = true
+            i.children[3].checked = true
           })
         }
         else {
           loadedImage.paths.forEach( p => p.show() )
           listItems.forEach( i => {
-            i.children[2].checked = false
+            i.children[3].checked = false
           })
         }
       });

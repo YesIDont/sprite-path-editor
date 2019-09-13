@@ -32,6 +32,6 @@ let SETTINGS = {
         fill: 'rgba( 0, 150, 255, 0.2 )'
       },
     },
-    AABB: { stroke: 'rgba( 255, 255, 255, 0.15 )' }
+    AABB: { stroke: 'rgba( 125, 125, 125, 0.5 )' }
   }
 }

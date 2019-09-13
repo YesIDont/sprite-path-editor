@@ -99,20 +99,62 @@ button {
   background: #000000;
 }
 
+.input-button {
+  display: block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
 input.button {
+  cursor: pointer;
   display: block;
   width: 25px;
   height: 25px;
   position: absolute;
-  cursor: pointer;
-  opacity: 0; /* hide this */
-  z-index: 5; /* and place it over the hamburger */
+  opacity: 0;
+  z-index: 5;
   -webkit-touch-callout: none;
 }
 
 input.button + button {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background: none;
+  display: block;
   -webkit-touch-callout: none;
   z-index: 2;
+}
+
+input.button + button img {
+  width: 17px;
+  height: 17px;
+  margin: 4px
+}
+
+input.switch {
+  -webkit-touch-callout: none;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 3;
+  position: absolute;
+  
+}
+
+input.switch + span {
+  -webkit-touch-callout: none;
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  z-index: 1;
+  background: #0279be;
+}
+
+input.switch:checked + span {
+  background: #02be1b;
 }
 
 .panel {
@@ -124,29 +166,27 @@ input.button + button {
   padding: 15px;
   -webkit-user-select: none;
   user-select: none;
-  /* -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4); */
 }
 
-.panel > div {
+.panel .content {
   width: 100%;
   background: #222;
   padding: 10px;
 }
 
-.panel > input:checked ~ div {
+.panel input.button:checked ~ .content {
   transform: none;
 }
 
 .panel > h5:first-child,
-.panel > div > h4 {
+.panel .content > h4 {
   display: block;
   padding-bottom: 10px;
   border-bottom: 1px solid #575757;
   margin-bottom: 10px;
 }
 
-.panel > div h5 {
+.panel .content h5 {
   margin-bottom: 10px;
 }
 
@@ -155,7 +195,7 @@ input.button + button {
   padding: 5px;
 }
 
-.panel-expandable > .content {
+.panel-expandable .content {
   background: #222 !important;
   padding: 10px !important;
   background: transparent;
@@ -186,48 +226,73 @@ input.button + button {
   left: 35px;
   height: 100vh;
   background: #222;
-  width: 220px;
-  padding: 0 20px 0 0;
+  width: 250px;
+  padding: 0;
 }
 
 .paths > .header {
+  background: #124f8c;
   height: 11px;
   border-bottom: 1px solid #333222;
-  padding: 10px 20px;
+  width: 90%;
+  padding: 5px 5%;
+  z-index: 3;
+  position: absolute;
 }
 
 .paths > .content {
-  height: calc( 100vh - 31px );
-  padding: 0 25px 0 15px;
+  height: 100vh;
+  padding: 0;
+  width: 100%;
 }
 
 .paths ul {
-  margin-top: 40px;
+  margin-top: 55px;
 }
 
 .paths .list-actions {
   position: absolute;
   background: #222;
-  width: 220px;
-  display: block;  
-  padding: 3px 20px;  
+  display: block;
   border-bottom: 1px solid #333222;
-  z-index: 3;
+  z-index: 1;
+  -webkit-box-shadow: 0 0 20px 5px rgba(0,0,0,.5);
+  box-shadow: 0 0 20px 5px rgba(0,0,0,.5);
+  width: 85%;
+  padding: 3px 10% 3px 5%;
+  top: 22px;
+  height: 22px;
 }
 
-.paths #hide-all {
+#select-all,
+#select-all + span {
   float: right;
-  margin-top: 4px;
+  margin-top: 5px;
+}
+
+#hide-all {
+  float: right;
+  margin-top: 5px;
+}
+
+#remove-selected {
+  margin-left: 15px;
+}
+
+#hide-all + span {
+  float: right;
+  margin-top: 5px;
 }
 
 .paths .path {
   display: block;
-  width: 100%;
   font-size: 11px;
   line-height: 12px;
-  padding: 5px;
   letter-spacing: 1px;
   transition: none;
+  width: 85%;
+  padding: 5px 3% 5px 2%;
+  margin-left: 3%;
 }
 
 .paths .path:not(:last-child) {
@@ -235,11 +300,7 @@ input.button + button {
 }
 
 .paths .path:hover {
-  background: #0099ff;
-}
-
-.paths .path input:last-child {
-  float: right;
+  background: #155f91;
 }
 
 .paths .path .path-selection {
@@ -250,28 +311,41 @@ input.button + button {
   font-size: 11px;
 }
 
+.paths .name {
+  margin-left: 20px;
+}
+
+.path-visibility {
+  float: right;
+  right: 25px;
+}
+
+.path-visibility + span {
+  background: transparent url(../img/icons/eye-open.svg) 100% 100% !important;
+  float: right !important;
+  right: 25px !important;
+}
+
+.path-visibility:checked + span {
+  background: transparent url(../img/icons/eye.svg) 100% 100% !important;
+}
+
+.path-selection + span {
+  background: transparent url(../img/icons/radio.svg) 100% 100% !important;
+}
+
+.path-selection:checked + span {
+  background: transparent url(../img/icons/radio-selected.svg) 100% 100% !important;
+}
+
 .workspace-settings {
   position: fixed;
   top: 5px;
   right: 5px;
 }
 
-.workspace-settings > input,
-.workspace-settings > button {
-  position: fixed;
-  top: 5px;
-  right: 5px;
-}
-
-.workspace-settings > button:hover {
-  background: transparent;
-}
-
-.workspace-settings > button:after {
-  top: -50px;
-}
-
-.workspace-settings > div > button {
+.workspace-settings input.button,
+.workspace-settings input.button + button {
   position: fixed;
   top: 5px;
   right: 5px;
@@ -292,12 +366,18 @@ input.button + button {
 .workspace-settings .background button {
   width: 30px;
   height: 30px;
-  margin-right: 5px;
+  margin: 2px;
+  transition: none;
+}
+
+.workspace-settings .background button.selected {
+  border: 2px solid #0099ff;
+  background-size: 140%;
 }
 
 .workspace-settings .background button:hover {
   border: 2px solid #0099ff;
-  transition: none;
+  background-size: 140%;
 }
 
 .cursor-move {
@@ -314,32 +394,10 @@ input.button + button {
 
 .cursor-none { cursor: none };
 
-.bg-dark  { background: #111 }
 .bg-light { background: #999 }
 .bg-white { background: #fff }
+.bg-dark  { background: #111 }
 
 .bg-chessboard {
-  background-image:
-    linear-gradient(
-      45deg, 
-    #d1d1d1 25%,
-      transparent 25%
-    ),
-    linear-gradient(
-      -45deg, #d1d1d1 25%,
-      transparent 25%
-    ),
-    linear-gradient(
-      45deg,
-      transparent 75%,
-      #d1d1d1 75%
-    ),
-    linear-gradient(
-      -45deg,
-      transparent 75%,
-      #d1d1d1 75%
-    );
-  background-size: 40px 40px;
-  background-position: 0 0, 0 99.8px, 99.8px -99.8px, -99.8px 0px;
-  background-color: #ffffff;
+  background: transparent url(../img/chessboard.png) repeat;
 }

@@ -2,56 +2,58 @@
 <html>
   
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
     <title>Sprite Editor</title>
     
     <!-- libraries -->
-    <script src="lib/imagetracer_v1.2.5.js"></script>
-    <script src="lib/simplebar.js"></script>
+    <script src='lib/imagetracer_v1.2.5.js'></script>
+    <script src='lib/simplebar.js'></script>
 
-    <link type="text/css" rel="stylesheet" href="css/reset.css">
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/simplebar.css">
+    <link type='text/css' rel='stylesheet' href='css/reset.css'>
+    <link type='text/css' rel='stylesheet' href='css/style.css'>
+    <link type='text/css' rel='stylesheet' href='css/simplebar.css'>
   </head>
   
   <body>
-    <div class="panel tools">
+    <div class='panel tools'>
       <button
-        class="ico tool select"
-        tooltip="Select and drag points.">
+        class='ico tool select'
+        tooltip='Select and drag points.'>
           <img src='img/icons/select.svg' alt='Pan Camera' /></button>
 
       <button
-        class="ico tool select-remove"
-        tooltip="Remove point.">
+        class='ico tool select-remove'
+        tooltip='Remove point.'>
           <img src='img/icons/select-remove.svg' alt='Remove point' /></button>
 
       <button
-        class="ico tool pan-viewport"
-        tooltip="Pan Camera (Viewport). Hold space bar alternatively.">
+        class='ico tool pan-viewport'
+        tooltip='Pan Camera (Viewport). Hold space bar alternatively.'>
           <img src='img/icons/pan-viewport.svg' alt='Pan Camera' /></button>
 
       <button
-        class="ico tool zoom-in"
-        tooltip="Zoom in Camera. Use mouse scroll alternatively.">
+        class='ico tool zoom-in'
+        tooltip='Zoom in Camera. Use mouse scroll alternatively.'>
           <img src='img/icons/zoom-in.svg' alt='Zoom In' /></button>
 
       <button
-        class="ico tool zoom-out"
-        tooltip="Zoom out Camera. Use mouse scroll alternatively.">
+        class='ico tool zoom-out'
+        tooltip='Zoom out Camera. Use mouse scroll alternatively.'>
           <img src='img/icons/zoom-out.svg' alt='Zoom Out' /></button>
     </div>
-    <div class="panel paths">
-      <div class="header">
+    <div class='panel paths'>
+      <div class='header'>
         <h5>Paths</h5>
       </div>
-      <p class="list-actions children-v-middle">
-          <input type='checkbox' id='select-all'/>
+      <p class='list-actions children-v-middle'>
+          <input type='checkbox' id='select-all' class='switch path-selection'/>
+          <span></span>
   
-          <button class="ico-small" id='remove-selected' >
+          <button class='ico-small' id='remove-selected' >
             <img src='img/icons/bin.svg' alt='Remove selected' /></button>
   
-          <input type='checkbox' id='hide-all'/>
+          <input type='checkbox' id='hide-all' class='switch path-visibility'/>
+            <span></span>
         </p>
 
       <div class='content scrollbar'>
@@ -60,36 +62,37 @@
     </div>
 
     <span class='workspace-settings-switch-background'></span>
-    <div class="panel panel-expandable workspace-settings">
-      <input type='checkbox' class='button'/>
-      <button class="ico"><img src='img/icons/settings.svg' alt='Settings' /></button>
+    <div class='panel panel-expandable workspace-settings'>
+      <input class='button' type='checkbox'/>
+      <button><img src='img/icons/settings.svg' alt='Settings' /></button>
 
       <div class='content'>
         <h4>Workspace Settings</h4>
-        <span class="background">
+        <span class='background'>
           <h5>Background color:</h5>
 
-          <button class="bg-chessboard"></button>
-          <button class="bg-white"></button>
-          <button class="bg-dark"></button>
+          <input type='radio' value=''>
+          <button class='bg-chessboard'></button>
+          <button class='bg-white'></button>
+          <button class='bg-dark selected'></button>
         </span>
       </div>
     </div>
 
     <canvas id='canvas'></canvas>
     
-    <script src="js/utils.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/requestAnimationFrame.js"></script>
-    <script src="js/canvas.js"></script>
-    <script src="js/draw.js"></script>
-    <script src="js/point.js"></script>
-    <script src="js/AABB.js"></script>
-    <script src="js/path.js"></script>
-    <script src="js/loaded-image.js"></script>
-    <script src="js/keyboard.js"></script>
-    <script src="js/mouse.js"></script>
-    <script src="js/tools.js"></script>
+    <script src='js/utils.js'></script>
+    <script src='js/settings.js'></script>
+    <script src='js/requestAnimationFrame.js'></script>
+    <script src='js/canvas.js'></script>
+    <script src='js/draw.js'></script>
+    <script src='js/point.js'></script>
+    <script src='js/AABB.js'></script>
+    <script src='js/path.js'></script>
+    <script src='js/loaded-image.js'></script>
+    <script src='js/keyboard.js'></script>
+    <script src='js/mouse.js'></script>
+    <script src='js/tools.js'></script>
 
     <script>
       let scrolls = [];
@@ -100,9 +103,13 @@
       pathsList.add = function( i ) {
         let li = document.createElement('li');
         li.innerHTML = `
-          <input type='checkbox' id='${i.id}' class='path-selection'/>
+          <input type='checkbox' id='${i.id}' class='switch path-selection'/>
+          <span></span>
+
           <span class='name'>${i.name}</span>
-          <input type='checkbox' id='${i.id}' class='path-visibility'/>
+
+          <input type='checkbox' id='${i.id}' class='switch path-visibility'/>
+          <span></span>
         `;
         // text = document.createTextNode(text);
         // li.appendChild( text );
@@ -126,7 +133,7 @@
         })
 
         // show / hide item
-        li.children[2].on('click', e => {
+        li.children[3].on('click', e => {
           if( e.target.checked ) loadedImage.paths[ e.target.id ].hide()
           else loadedImage.paths[ e.target.id ].show()
         })
@@ -216,7 +223,7 @@
           ( canvas.height / 2 ) - ( loadedImage.image.height / 2 * SETTINGS.scale )
         )
 
-        // add computed paths to "Paths" panel
+        // add computed paths to 'Paths' panel
         wait(
           () => loadedImage.arePathsLoaded(),
           () => loadedImage.paths.forEach( p => pathsList.add( p ))

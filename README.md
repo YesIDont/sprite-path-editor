@@ -2,8 +2,8 @@
 Online sprite's paths editor allowing to create vector data for game physics engines. Traces raster data to get paths that converted to points arrays that can be edited and exported.
 
 ### TECH STACK:
-* HTML 4/5
-* LESS, BEM, COMPASS
+* HTML 5
+* CSS3, LESS, COMPASS
 * JS ES5/ES6
 
 ### TO DO / DONE:

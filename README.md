@@ -1,7 +1,12 @@
-# sprite-path-editor
-Pure HTML, CSS and JS online sprite's paths editor allowing to create vector data for game physics engines. Just upload your picture, watch as your paths are being automatically created. You can edit them before exporting data.
+# Sprite Path Editor
+Online sprite's paths editor allowing to create vector data for game physics engines. Traces raster data to get paths that converted to points arrays that can be edited and exported.
 
-TO DO:
+### TECH STACK:
+* HTML 4/5
+* LESS, BEM, COMPASS
+* JS ES5/ES6
+
+### TO DO / DONE:
 - [x] path tracing for convex and concave raster shapes
 - [x] canvas scaling and rescaling on window size change event
 - [x] toolbar with api alowing for quick addition of new tools
@@ -33,3 +38,8 @@ TO DO:
 - [x] zoom in/out
   - [x] tools
   - [x] zoom on mouse scroll
+- [ ] persist options in form of:
+  - [ ] local state
+  - [ ] cookies
+- [ ] export paths data as:
+  - [ ] json

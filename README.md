@@ -7,7 +7,7 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 * JS ES5/ES6
 
 ### TO DO / DONE:
-- [x] path tracing for convex and concave raster shapes
+- [x] apply path tracing library for convex and concave raster shapes
 - [x] canvas scaling and rescaling on window size change event
 - [x] toolbar with api alowing for quick addition of new tools
 - [x] css clases for panels sliding from outside the window
@@ -20,6 +20,7 @@ Online sprite's paths editor allowing to create vector data for game physics eng
     - [x] red pink
     - [x] light green
     - [ ] color picker for custom colors
+  - [ ] paths & points colors
 - [ ] path & points panel with
   - [ ] list of selectable:
     - [x] paths
@@ -27,7 +28,11 @@ Online sprite's paths editor allowing to create vector data for game physics eng
   - [x] tools:
     - [x] select/unselect all
     - [x] hide/show all
-  - [x] remove selected
+  - [x] remove selected items tool
+  - [ ] indication that item is
+    - [x] selected / unselected
+    - [ ] half selected (for paths with only some of their points selected)
+    - [x] visible / hidden
 - [ ] selection tool allowing to select points:
   - [ ] single points
   - [ ] multiple points

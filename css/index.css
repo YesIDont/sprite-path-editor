@@ -1,0 +1,398 @@
+/* line 1, sass/_mixins.sass */
+* {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* line 4, sass/_rawElements.sass */
+body {
+  background-color: #111111;
+}
+
+/* line 7, sass/_rawElements.sass */
+input {
+  width: 11px;
+  height: 11px;
+}
+
+/* line 11, sass/_rawElements.sass */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* line 16, sass/_rawElements.sass */
+h1 {
+  font-size: 35px;
+}
+
+/* line 19, sass/_rawElements.sass */
+h2 {
+  font-size: 25px;
+}
+
+/* line 22, sass/_rawElements.sass */
+h3 {
+  font-size: 20px;
+}
+
+/* line 25, sass/_rawElements.sass */
+h4 {
+  font-size: 18px;
+}
+
+/* line 28, sass/_rawElements.sass */
+button {
+  cursor: pointer;
+}
+
+/* line 2, sass/_helpers.sass */
+.children-v-middle > * {
+  display: inline;
+  vertical-align: middle;
+}
+
+/* line 1, sass/_icons.sass */
+.ico {
+  width: 25px;
+  height: 25px;
+  background: none;
+  cursor: pointer;
+  display: block;
+}
+/* line 8, sass/_icons.sass */
+.ico img {
+  width: 17px;
+  height: 17px;
+  margin: 4px;
+}
+/* line 13, sass/_icons.sass */
+.ico:hover {
+  background-color: #222;
+}
+/* line 16, sass/_icons.sass */
+.ico-small {
+  background: none;
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px;
+  margin: 0 2px;
+}
+/* line 25, sass/_icons.sass */
+.ico-small:hover {
+  background: #000000;
+}
+/* line 28, sass/_icons.sass */
+.ico-small img {
+  width: 15px;
+  height: 15px;
+}
+
+/* line 1, sass/_inputButton.sass */
+input.button {
+  cursor: pointer;
+  display: block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  opacity: 0;
+  z-index: 5;
+  -webkit-touch-callout: none;
+}
+/* line 11, sass/_inputButton.sass */
+input.button + button {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background: none;
+  display: block;
+  -webkit-touch-callout: none;
+  z-index: 2;
+}
+/* line 20, sass/_inputButton.sass */
+input.button + button img {
+  width: 17px;
+  height: 17px;
+  margin: 4px;
+}
+
+/* line 1, sass/_inputSwitch.sass */
+.switch {
+  -webkit-touch-callout: none;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 3;
+  position: absolute;
+}
+/* line 10, sass/_inputSwitch.sass */
+.switch + span {
+  -webkit-touch-callout: none;
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  z-index: 1;
+  background: #0279be;
+}
+/* line 18, sass/_inputSwitch.sass */
+.switch:checked + span {
+  background: #02be1b;
+}
+/* line 21, sass/_inputSwitch.sass */
+.switch.visibility {
+  float: right;
+  right: 25px;
+}
+/* line 25, sass/_inputSwitch.sass */
+.switch.visibility + span {
+  background: transparent url(../img/icons/eye-open.svg) 100% 100% !important;
+  float: right;
+  right: 25px;
+}
+/* line 30, sass/_inputSwitch.sass */
+.switch.visibility:checked + span {
+  background: transparent url(../img/icons/eye.svg) 100% 100% !important;
+}
+/* line 34, sass/_inputSwitch.sass */
+.switch.selection + span {
+  background: transparent url(../img/icons/radio.svg) 100% 100% !important;
+}
+/* line 37, sass/_inputSwitch.sass */
+.switch.selection:checked + span {
+  background: transparent url(../img/icons/radio-selected.svg) 100% 100% !important;
+}
+
+/* line 1, sass/_panel.sass */
+.panel {
+  font-size: 13px;
+  background: #333;
+  color: #d1d1d1;
+  padding: 5px;
+  z-index: 1;
+  padding: 15px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* line 11, sass/_panel.sass */
+.panel input.button:checked ~ .content {
+  transform: none;
+}
+/* line 14, sass/_panel.sass */
+.panel > h5:first-child,
+.panel .content > h4 {
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #575757;
+  margin-bottom: 10px;
+}
+/* line 21, sass/_panel.sass */
+.panel .content {
+  width: 100%;
+  background: #222;
+  padding: 10px;
+}
+/* line 26, sass/_panel.sass */
+.panel .content h5 {
+  margin-bottom: 10px;
+}
+/* line 29, sass/_panel.sass */
+.panel-expandable {
+  background: transparent;
+  padding: 5px;
+}
+/* line 33, sass/_panel.sass */
+.panel-expandable .content {
+  background: #222 !important;
+  padding: 10px !important;
+  background: transparent;
+  padding: 5px;
+  width: 250px;
+  padding: 15px;
+  transform-origin: 0% 0%;
+  transform: translate(150%, 0);
+}
+
+/* line 1, sass/_tools.sass */
+.tools {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 100vh;
+  padding: 7px 5px 5px 5px;
+}
+/* line 9, sass/_tools.sass */
+.tools .ico {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* line 1, sass/_paths.sass */
+.paths {
+  position: fixed;
+  top: 0;
+  left: 35px;
+  height: 100vh;
+  background: #222;
+  width: 250px;
+  padding: 0;
+}
+/* line 10, sass/_paths.sass */
+.paths .header {
+  background: #124f8c;
+  height: 11px;
+  border-bottom: 1px solid #333222;
+  width: 90%;
+  padding: 5px 5%;
+  z-index: 3;
+  position: absolute;
+  text-align: center;
+}
+/* line 20, sass/_paths.sass */
+.paths .content {
+  height: 100vh;
+  padding: 0;
+  width: 100%;
+}
+/* line 25, sass/_paths.sass */
+.paths ul {
+  margin-top: 55px;
+}
+/* line 28, sass/_paths.sass */
+.paths .list-actions {
+  position: absolute;
+  background: #222;
+  display: block;
+  border-bottom: 1px solid #333222;
+  z-index: 1;
+  -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+  width: 85%;
+  padding: 3px 10% 3px 5%;
+  top: 22px;
+  height: 22px;
+}
+/* line 41, sass/_paths.sass */
+.paths #hide-all,
+.paths #hide-all + span,
+.paths #select-all,
+.paths #select-all + span {
+  margin-top: 5px;
+}
+/* line 47, sass/_paths.sass */
+.paths #remove-selected {
+  margin-left: 15px;
+}
+/* line 51, sass/_paths.sass */
+.paths .path {
+  display: block;
+  font-size: 11px;
+  line-height: 12px;
+  letter-spacing: 1px;
+  transition: none;
+  width: 85%;
+  padding: 5px 3% 5px 2%;
+  margin-left: 3%;
+}
+/* line 61, sass/_paths.sass */
+.paths .path:not(:last-child) {
+  border-bottom: 1px solid #333;
+}
+/* line 64, sass/_paths.sass */
+.paths .path:hover {
+  background: #155f91;
+}
+/* line 67, sass/_paths.sass */
+.paths .path-selection {
+  margin-right: 3px;
+}
+/* line 70, sass/_paths.sass */
+.paths .path p {
+  font-size: 11px;
+}
+/* line 73, sass/_paths.sass */
+.paths .path .name {
+  margin-left: 20px;
+}
+
+/* line 1, sass/_workspace.sass */
+.workspace-settings {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+}
+/* line 6, sass/_workspace.sass */
+.workspace-settings input.button,
+.workspace-settings input.button + button {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+}
+/* line 12, sass/_workspace.sass */
+.workspace-settings .background span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  transition: none;
+  cursor: pointer;
+}
+/* line 20, sass/_workspace.sass */
+.workspace-settings-switch-background {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  background: #111;
+  z-index: 1;
+  border-radius: 15px;
+}
+
+/* line 13, sass/index.sass */
+.cursor-move {
+  cursor: url(../img/icons/pan-viewport-cursor.png), auto;
+}
+/* line 16, sass/index.sass */
+.cursor-zoom-in {
+  cursor: url(../img/icons/zoom-in-cursor.png), auto;
+}
+/* line 19, sass/index.sass */
+.cursor-zoom-out {
+  cursor: url(../img/icons/zoom-out-cursor.png), auto;
+}
+/* line 22, sass/index.sass */
+.cursor-none {
+  cursor: none;
+}
+
+/* line 26, sass/index.sass */
+.bg-chessboard {
+  background-color: transparent;
+  background-repeat: repeat;
+  background-image: url(../img/chessboard.png);
+}
+/* line 31, sass/index.sass */
+.bg-white {
+  background: #ffffff;
+}
+/* line 34, sass/index.sass */
+.bg-dark {
+  background: #111111;
+}
+/* line 37, sass/index.sass */
+.bg-pink-red {
+  background: #ff0099;
+}
+/* line 40, sass/index.sass */
+.bg-green {
+  background: #44ff44;
+}

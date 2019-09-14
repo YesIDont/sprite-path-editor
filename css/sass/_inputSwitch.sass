@@ -1,0 +1,38 @@
+.switch
+  -webkit-touch-callout: none
+  width: 13px
+  height: 13px
+  cursor: pointer
+  opacity: 0
+  z-index: 3
+  position: absolute
+
+  + span
+    -webkit-touch-callout: none
+    width: 13px
+    height: 13px
+    position: absolute
+    z-index: 1
+    background: #0279be
+
+  &:checked + span
+    background: #02be1b
+
+  &.visibility
+    float: right
+    right: 25px
+
+    + span
+      background: transparent url(../img/icons/eye-open.svg) 100% 100% !important
+      float: right
+      right: 25px
+
+    &:checked + span
+      background: transparent url(../img/icons/eye.svg) 100% 100% !important
+
+  &.selection
+    + span
+      background: transparent url(../img/icons/radio.svg) 100% 100% !important
+
+    &:checked + span
+      background: transparent url(../img/icons/radio-selected.svg) 100% 100% !important

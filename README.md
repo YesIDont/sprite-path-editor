@@ -43,3 +43,8 @@ Online sprite's paths editor allowing to create vector data for game physics eng
   - [ ] cookies
 - [ ] export paths data as:
   - [ ] json
+
+Final optimisation to do:
+- [ ] sortout which elements should be animated with css
+- [ ] create sprite out of all icons / images
+- [ ] final code refactor

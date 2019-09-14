@@ -1,0 +1,74 @@
+.paths
+  position: fixed
+  top: 0
+  left: 35px
+  height: 100vh
+  background: #222
+  width: 250px
+  padding: 0
+
+  .header
+    background: #124f8c
+    height: 11px
+    border-bottom: 1px solid #333222
+    width: 90%
+    padding: 5px 5%
+    z-index: 3
+    position: absolute
+    text-align: center
+
+  .content
+    height: 100vh
+    padding: 0
+    width: 100%
+
+  ul
+    margin-top: 55px
+
+  .list-actions
+    position: absolute
+    background: #222
+    display: block
+    border-bottom: 1px solid #333222
+    z-index: 1
+    -webkit-box-shadow: 0 0 20px 5px rgba(0,0,0,.5)
+    box-shadow: 0 0 20px 5px rgba(0,0,0,.5)
+    width: 85%
+    padding: 3px 10% 3px 5%
+    top: 22px
+    height: 22px
+
+  #hide-all,
+  #hide-all + span,
+  #select-all,
+  #select-all + span
+    margin-top: 5px
+
+  #remove-selected
+    margin-left: 15px
+
+
+  .path
+    display: block
+    font-size: 11px
+    line-height: 12px
+    letter-spacing: 1px
+    transition: none
+    width: 85%
+    padding: 5px 3% 5px 2%
+    margin-left: 3%
+
+    &:not(:last-child)
+      border-bottom: 1px solid #333
+
+    &:hover
+      background: #155f91
+
+    &-selection
+      margin-right: 3px
+
+    p
+      font-size: 11px
+
+    .name
+      margin-left: 20px

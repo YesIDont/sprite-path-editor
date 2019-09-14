@@ -10,7 +10,7 @@
     <script src='lib/simplebar.js'></script>
 
     <link type='text/css' rel='stylesheet' href='css/reset.css'>
-    <link type='text/css' rel='stylesheet' href='css/style.css'>
+    <link type='text/css' rel='stylesheet' href='css/index.css'>
     <link type='text/css' rel='stylesheet' href='css/simplebar.css'>
   </head>
   
@@ -46,13 +46,13 @@
         <h5>Paths & Points</h5>
       </div>
       <p class='list-actions children-v-middle'>
-          <input type='checkbox' id='select-all' class='switch path-selection'/>
-          <span></span>
+          <input type='checkbox' id='select-all' class='switch selection'/>
+            <span></span>
   
           <button class='ico-small' id='remove-selected' >
             <img src='img/icons/bin.svg' alt='Remove selected' /></button>
   
-          <input type='checkbox' id='hide-all' class='switch path-visibility'/>
+          <input type='checkbox' id='hide-all' class='switch visibility'/>
             <span></span>
         </p>
 
@@ -104,12 +104,12 @@
       pathsList.add = function( i ) {
         let li = document.createElement('li');
         li.innerHTML = `
-          <input type='checkbox' id='${i.id}' class='switch path-selection'/>
+          <input type='checkbox' id='${i.id}' class='switch selection'/>
           <span></span>
 
           <span class='name'>${i.name}</span>
 
-          <input type='checkbox' id='${i.id}' class='switch path-visibility'/>
+          <input type='checkbox' id='${i.id}' class='switch visibility'/>
           <span></span>
         `;
         // text = document.createTextNode(text);

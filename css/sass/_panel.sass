@@ -1,0 +1,42 @@
+.panel
+  font-size: 13px
+  background: #333
+  color: #d1d1d1
+  padding: 5px  
+  z-index: 1
+  padding: 15px
+  -webkit-user-select: none
+  user-select: none
+
+  input.button:checked ~ .content
+    transform: none
+  
+  > h5:first-child,
+  .content > h4
+    display: block
+    padding-bottom: 10px
+    border-bottom: 1px solid #575757
+    margin-bottom: 10px
+
+  .content
+    width: 100%
+    background: #222
+    padding: 10px
+
+    h5
+      margin-bottom: 10px
+
+  &-expandable
+    background: transparent
+    padding: 5px
+
+    .content
+      background: #222 !important
+      padding: 10px !important
+      background: transparent
+      padding: 5px
+      width: 250px
+      padding: 15px
+      transform-origin: 0% 0%
+      transform: translate(150%, 0)
+

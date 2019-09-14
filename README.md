@@ -33,6 +33,3 @@ TO DO:
 - [x] zoom in/out
   - [x] tools
   - [x] zoom on mouse scroll
-- [ ] panel with selection of:
-  - [x] paths
-  - [ ] points

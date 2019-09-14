@@ -11,16 +11,6 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 - [x] canvas scaling and rescaling on window size change event
 - [x] toolbar with api alowing for quick addition of new tools
 - [x] css clases for panels sliding from outside the window
-- [ ] workspace (canvas) options panel with icon in top right corner
-  - [ ] background color options
-    - [x] chessboard
-    - [x] white
-    - [x] gray
-    - [x] dark
-    - [x] red pink
-    - [x] light green
-    - [ ] color picker for custom colors
-  - [ ] paths & points colors
 - [ ] path & points panel with
   - [ ] list of selectable:
     - [x] paths
@@ -43,6 +33,16 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 - [x] zoom in/out
   - [x] tools
   - [x] zoom on mouse scroll
+- [ ] workspace (canvas) options panel with icon in top right corner
+  - [ ] background color options
+    - [x] chessboard
+    - [x] white
+    - [x] gray
+    - [x] dark
+    - [x] red pink
+    - [x] light green
+    - [ ] color picker for custom colors
+  - [ ] paths & points colors
 - [ ] persist options in form of:
   - [ ] local state
   - [ ] cookies

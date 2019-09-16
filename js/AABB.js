@@ -5,12 +5,12 @@ const AABB = function( x, y, w, h ) {
   this.h = h || 0;
 };
 
-AABB.prototype.draw = function() {
+AABB.prototype.draw = function( color ) {
   Draw.rectangle(
     this.x * SETTINGS.scale,
     this.y * SETTINGS.scale,
     this.w * SETTINGS.scale,
     this.h * SETTINGS.scale,
-    { stroke: SETTINGS.colors.AABB.stroke }
+    color || { stroke: SETTINGS.colors.AABB.stroke }
   )
 };

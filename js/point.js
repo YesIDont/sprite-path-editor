@@ -77,20 +77,21 @@ Point.prototype.draw = function( customColor ) {
   let color, r = this.r;
 
   if( this.isSelected && this.isHighlighted ) {
-    r = 5;
+    r = 6;
     color = {
       stroke: customColor.stroke || SETTINGS.colors.point.selected.stroke,
       fill: SETTINGS.colors.point.selected.fill
     }
   }
   else if( this.isSelected ) {
+    r = 4;
     color = {
       stroke: customColor.stroke || SETTINGS.colors.point.selected.stroke,
       fill: SETTINGS.colors.point.selected.fill
     }
   }
   else if( this.isHighlighted ) {
-    r = 5;
+    r = 6;
     color = {
       stroke: customColor.stroke || SETTINGS.colors.point.highlighted.stroke,
       fill: SETTINGS.colors.point.highlighted.fill

@@ -24,9 +24,9 @@ Path.prototype.unSelect = function() {
   return this
 };
 
-Path.prototype.show = function() {
+Path.prototype.show = function( pointTriger ) {
   this.isVisible = true;
-  this.points.forEach( p => p.show() );
+  if( !pointTriger ) this.points.forEach( p => p.show() );
   return this
 };
 
@@ -78,11 +78,17 @@ Path.prototype.draw = function() {
 
   let color;
 
-  if( this.isSelected )  color = { stroke: SETTINGS.colors.path.selected.stroke }
+  if( this.isSelected ) color = { stroke: SETTINGS.overridePathsColors
+    ? SETTINGS.colors.path.selected.stroke
+    : this.color
+  }
 
-  else if( this.isHighlighted ) color = { stroke: SETTINGS.colors.path.highlighted.stroke }
+  // else if( this.isHighlighted ) color = { stroke: SETTINGS.colors.path.highlighted.stroke }
 
-  else color = { stroke: SETTINGS.overridePathsColors ? SETTINGS.colors.path.idle.stroke : this.color }
+  else color = { stroke: SETTINGS.overridePathsColors
+    ? SETTINGS.colors.path.idle.stroke
+    : this.color
+  }
 
   this.AABB.draw();
 

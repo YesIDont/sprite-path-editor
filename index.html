@@ -150,15 +150,11 @@
 
         if( e.target.checked ) {
           loadedImage.paths.forEach( p => p.hide() )
-          listItems.forEach( i => {
-            i.getElementsByClassName('visibility')[0].checked = true
-          })
+          get('.visibility').forEach( v => v.checked = true )
         }
         else {
           loadedImage.paths.forEach( p => p.show() )
-          listItems.forEach( i => {
-            i.getElementsByClassName('visibility')[0].checked = false
-          })
+          get('.visibility').forEach( v => v.checked = false )
         }
       });
 
@@ -190,11 +186,6 @@
         if( mouse.isDown.left && canvas.allow.actions.selection && !( 32 in keysDown )) mouse.selection.draw();
 
         requestAnimationFrame( updateWorkspace );
-      }
-
-      let lol = {
-        fill: randomRGB(),
-        stroke: randomRGB()
       }
       
       window.on('load', () => {

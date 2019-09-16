@@ -71,12 +71,19 @@ function ListItem( i, color ) {
         mouse.selection.remove( i );
       }
     })
+
+    // show / hide point
+    li.getElementsByClassName('visibility')[0].on('click', e => {
+      if( e.target.checked ) i.hide()
+
+      else {
+        i.show();
+        i.parent.show( true );
+      }
+    })
   }
 
-  // show / hide path
-  li.getElementsByClassName('visibility')[0].on('click', e => {
 
-  })
 
   return li
 }

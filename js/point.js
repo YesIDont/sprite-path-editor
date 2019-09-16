@@ -1,4 +1,6 @@
-const Point = function( x, y ) {
+const Point = function( x, y, parent ) {
+  this.parent = parent || undefined;
+  this.id = undefined;
   this.type = 'point'; // point
   this.x = x || 0;
   this.y = y || 0;
@@ -28,6 +30,11 @@ Point.prototype.show = function() {
 Point.prototype.hide = function() {
   this.isVisible = false;
   return this
+}
+
+Point.prototype.remove = function() {
+  let index = this.parent.points.findIndex( p => p.id === this.id );
+  this.parent.points.splice( index, 1 );
 }
 
 Point.prototype.set = function( x, y ) {
@@ -63,35 +70,35 @@ Point.prototype.getCanvasPos = function() {
   }
 }
 
-Point.prototype.draw = function() {
+Point.prototype.draw = function( customColor ) {
   if( !this.isVisible ) return
 
   const { x, y } = this.getCanvasPos();
   let color, r = this.r;
 
   if( this.isSelected && this.isHighlighted ) {
-    r = 4;
+    r = 5;
     color = {
-      stroke: SETTINGS.colors.point.selected.stroke,
+      stroke: customColor.stroke || SETTINGS.colors.point.selected.stroke,
       fill: SETTINGS.colors.point.selected.fill
     }
   }
   else if( this.isSelected ) {
     color = {
-      stroke: SETTINGS.colors.point.selected.stroke,
+      stroke: customColor.stroke || SETTINGS.colors.point.selected.stroke,
       fill: SETTINGS.colors.point.selected.fill
     }
   }
   else if( this.isHighlighted ) {
-    r = 4;
+    r = 5;
     color = {
-      stroke: SETTINGS.colors.point.highlighted.stroke,
+      stroke: customColor.stroke || SETTINGS.colors.point.highlighted.stroke,
       fill: SETTINGS.colors.point.highlighted.fill
     }
   }
   
   else {
-    color = { stroke: SETTINGS.colors.point.idle.stroke }
+    color = { stroke: customColor.stroke || SETTINGS.colors.point.idle.stroke }
   }
 
   Draw.circle( x, y, r, color );

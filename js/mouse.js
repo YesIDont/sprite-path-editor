@@ -22,12 +22,14 @@ const Selection = function( parrentReference ) {
 
   this.removeSelected = function() {
     this.items.forEach( i => {
-      // if item is of "path" type
+      // remove element from UI paths list
       if( i.type === 'path' ) {
-        for( let n = 0; n < pathsList.children.length; n++ ) {
-          let child = pathsList.children[ n ];
-          if( parseInt( child.id ) === i.id ) child.remove()
-        }
+        get(`.path.id-${ i.id }`)[ 0 ].remove()
+
+      }
+      else {
+        get(`.path.id-${ i.parent.id } .point.id-${ i.id }`)[ 0 ].remove()
+
       }
       i.remove()
     })

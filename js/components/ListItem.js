@@ -1,48 +1,81 @@
-function ListItem( i ) {
+function ListItem( i, color ) {
   // i: item
+
+  const { id, name } = i;
 
   let li = document.createElement('li');
   li.innerHTML = `
-    <input type='checkbox' id='${i.id}' class='switch selection'/>
+    <input type='checkbox' id='${ id }' class='switch selection'/>
     <span></span>
+
+    <span class='path-color' style='background: ${ color || i.color }'></span>
 
     ${ i.type === 'path' ?
       `
-        <input type='checkbox' id='${i.id}' class='switch expansion'/>
+        <input type='checkbox' id='${ id }' class='switch expansion'/>
         <span></span>
       `
       : ''
     }
 
-    <span class='name'>${i.name}</span>
+    <span class='name'>${ name }</span>
 
-    <input type='checkbox' id='${i.id}' class='switch visibility'/>
+    <input type='checkbox' id='${ id }' class='switch visibility'/>
     <span></span>
   `;
 
-  li.className = `${i.type} children-v-middle`;
-  li.id = i.id;
+  li.className = `id-${ id } ${ i.type } children-v-middle`;
+  li.id = id;
 
-  // select / unselect item
-  li.getElementsByClassName('selection')[0].on('click', e => {
-    let item = loadedImage.paths.filter( p => {
-      return p.id === parseInt( e.target.id )
-    })[0]
 
-    if( e.target.checked ) {
-      item.select()
-      mouse.selection.add( item )
-    }
-    else {
-      item.unSelect()
-      mouse.selection.remove( item )
-    }
-  })
 
-  // show / hide item
+  if( i.type === 'path' ) {
+    // select / unselect path
+    li.getElementsByClassName('selection')[0].on('click', e => {
+      if( e.target.checked ) {
+        i.select();
+        mouse.selection.add( i );
+
+        get(`.path.id-${ id } .selection`).forEach( point => point.checked = true )
+      }
+      else {
+        i.unSelect();
+        mouse.selection.remove( i );
+
+        get(`.path.id-${ id } .selection`).forEach( point => point.checked = false )
+      }
+    })
+
+    // show / hide path
+    li.getElementsByClassName('visibility')[0].on('click', e => {
+      if( e.target.checked ) {
+        i.hide();
+        get(`.path.id-${ id } .visibility`).forEach( point => point.checked = true )
+      }
+      else {
+        i.show()
+        get(`.path.id-${ id } .visibility`).forEach( point => point.checked = false )
+      }
+    })
+  }
+
+  else if( i.type === 'point' ) {
+    // select / unselect point
+    li.getElementsByClassName('selection')[0].on('click', e => {
+      if( e.target.checked ) {
+        i.select();
+        mouse.selection.add( i );
+      }
+      else {
+        i.unSelect();
+        mouse.selection.remove( i );
+      }
+    })
+  }
+
+  // show / hide path
   li.getElementsByClassName('visibility')[0].on('click', e => {
-    if( e.target.checked ) loadedImage.paths[ e.target.id ].hide()
-    else loadedImage.paths[ e.target.id ].show()
+
   })
 
   return li

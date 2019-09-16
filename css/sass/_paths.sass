@@ -50,7 +50,7 @@
   .switch
     &.expansion,
     &.expansion + span
-      left: 30px
+      left: 40px
 
     &.visibility,    
     &.visibility + span
@@ -76,11 +76,19 @@
     // &:hover
     //   background: #155f91
 
+    .path-color
+      width: 4px
+      height: 18px
+      display: inline-block
+      position: absolute
+      left: 32px
+      margin-top: -3px
+
     &-selection
       margin-right: 3px
         
     .name
-      margin-left: 35px
+      margin-left: 45px
 
     .points
       display: none        
@@ -95,7 +103,11 @@
           border-bottom: 1px solid #333
 
         .name
-          margin-left: 45px
+          margin-left: 60px
+
+        .path-color
+          height: 13px
+          margin-top: -1px
     
     .expansion:checked ~ .points
       display: initial

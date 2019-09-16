@@ -112,7 +112,7 @@
         // add points listing
         let points = ul({ class: 'points' });
         item.points.forEach( p => {
-          points.appendChild( ListItem( p ))
+          points.appendChild( ListItem( p, item.color ))
         })
         li.appendChild( points );
         
@@ -190,6 +190,11 @@
         if( mouse.isDown.left && canvas.allow.actions.selection && !( 32 in keysDown )) mouse.selection.draw();
 
         requestAnimationFrame( updateWorkspace );
+      }
+
+      let lol = {
+        fill: randomRGB(),
+        stroke: randomRGB()
       }
       
       window.on('load', () => {

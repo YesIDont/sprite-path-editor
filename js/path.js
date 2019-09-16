@@ -5,6 +5,7 @@ const Path = function( points, id, name ) {
   this.id = id || 0;
   this.name = name || '';
   this.points = points;
+  this.color = randomRGB();
   this.isSelected = false;
   this.isHighlighted = false;
   this.isVisible = true;
@@ -36,10 +37,7 @@ Path.prototype.hide = function() {
 };
 
 Path.prototype.remove = function() {
-  let index = this.parent.findIndex( i => {
-    return i.id === this.id
-  })
-
+  let index = this.parent.findIndex( i => i.id === this.id );
   this.parent.splice( index, 1 );
 };
 
@@ -84,13 +82,13 @@ Path.prototype.draw = function() {
 
   else if( this.isHighlighted ) color = { stroke: SETTINGS.colors.path.highlighted.stroke }
 
-  else color = { stroke: SETTINGS.colors.path.idle.stroke }
+  else color = { stroke: SETTINGS.overridePathsColors ? SETTINGS.colors.path.idle.stroke : this.color }
 
   this.AABB.draw();
 
   Draw.polygon( this.points, color );
 
-  this.points.forEach( point =>  point.draw() )
+  this.points.forEach( point =>  point.draw( color ) )
 
   return this
 };

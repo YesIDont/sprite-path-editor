@@ -44,6 +44,10 @@ const LoadedImage = function( path ) {
   this.image.src = path;
 }
 
+LoadedImage.prototype.getPathById = function( id ) {
+  return this.paths.filter( path => path.id === id )[0]
+}
+
 LoadedImage.prototype.arePathsLoaded = function() {
   return this.paths.length > 0
 }
@@ -143,8 +147,12 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     p.name = `Path ${i}`;
     p.parent = paths;
 
-    // and set name for each point
-    p.points.forEach(( p, i ) => p.name = `Point ${i}` )
+    // set name for each point and reference to parent path
+    p.points.forEach(( point, i ) => {
+      point.id = i;
+      point.name = `Point ${i}`;
+      point.parent = p;
+    })
   });
 
   return paths

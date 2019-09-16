@@ -11,13 +11,14 @@ const Draw = {
   circle: function( x, y, r, colors ) {
     c.save();
     c.beginPath();
+    c.lineWidth = 2;
     if( colors.fill ) c.fillStyle = colors.fill;
     if( colors.stroke ) c.strokeStyle = colors.stroke;
     
     c.arc( x, y, r, 0, 2 * Math.PI );
 
-    if( colors.fill ) c.fill();
     if( colors.stroke ) c.stroke();
+    if( colors.fill ) c.fill();
     c.restore();
   },
 

@@ -8,7 +8,7 @@ function ListItem( i, color ) {
     <input type='checkbox' id='${ id }' class='switch selection'/>
     <span></span>
 
-    <span class='path-color' style='background: ${ color || i.color }'></span>
+    <span class='path-color' style='background: ${ color || i.stroke }'></span>
 
     ${ i.type === 'path' ?
       `

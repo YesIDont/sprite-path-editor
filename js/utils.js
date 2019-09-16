@@ -108,5 +108,5 @@ function randomRGB() {
   let y = Math.floor(Math.random() * 256);
   let z = Math.floor(Math.random() * 256);
 
-  return `rgba( ${x}, ${y}, ${z}, 1)`
+  return `rgba( ${x}, ${y}, ${z}, 1 )`
 }

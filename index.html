@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <!-- illustrator reference
+  <!--
+    illustrator UI reference
     https://i.stack.imgur.com/NQbhF.png
+
+    arch nemezis
+    https://www.codeandweb.com/physicseditor
   -->
   
   <head>
@@ -80,6 +84,11 @@
           <span class='bg-pink-red'></span>
           <span class='bg-green'></span>
         </span>
+
+        <div class='single-option' id='paths-color-verride'>
+          <input type="checkbox"> <span>Override paths colors with default color</span>
+          <p>Check this if you don't wan't your paths to be displayed in their own, randomly assigned color. Option below allows to choose default colors for paths and points.</p>
+        </div>
       </div>
     </div>
 
@@ -119,8 +128,10 @@
         this.appendChild( li )
       }
 
+      // change background color
       get('.workspace-settings .background span').forEach(
         element => element.on('click', () => body.className = element.className ));
+      body.className = 'bg-chessboard';
       
       // select / unselect all paths
       get('.paths .list-actions #select-all')[0].on('click', e => {
@@ -161,6 +172,16 @@
       // remove all selected
       get.id('remove-selected').on('click', () => {
         mouse.selection.removeSelected()
+      });
+
+      // turn on/of paths random colors override
+      get.id('paths-color-verride').on('click', e => {
+        if( e.target.checked ) {
+          SETTINGS.colors.overridePathsColors = true
+        }
+        else {
+          SETTINGS.colors.overridePathsColors = false
+        }
       })
       
       let loadedImage;
@@ -202,6 +223,12 @@
           () => loadedImage.arePathsLoaded(),
           () => loadedImage.paths.forEach( p => pathsList.addPath( p ))
         )
+
+        canvas.offset = { x: 347, y: 97 };
+        SETTINGS.scale = 6.75;
+        SETTINGS.colors.overridePathsColors = true;
+        get('#paths-color-verride input')[0].checked = true;
+
 
         updateWorkspace();
       });

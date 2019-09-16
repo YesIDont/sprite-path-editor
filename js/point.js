@@ -76,30 +76,20 @@ Point.prototype.draw = function( customColor ) {
   const { x, y } = this.getCanvasPos();
   let color, r = this.r;
 
-  if( this.isSelected && this.isHighlighted ) {
-    r = 6;
+  if( this.isHighlighted ) r = 5;
+
+  if( this.isSelected ) {
     color = {
-      stroke: customColor.stroke || SETTINGS.colors.point.selected.stroke,
+      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
       fill: SETTINGS.colors.point.selected.fill
-    }
-  }
-  else if( this.isSelected ) {
-    r = 4;
-    color = {
-      stroke: customColor.stroke || SETTINGS.colors.point.selected.stroke,
-      fill: SETTINGS.colors.point.selected.fill
-    }
-  }
-  else if( this.isHighlighted ) {
-    r = 6;
-    color = {
-      stroke: customColor.stroke || SETTINGS.colors.point.highlighted.stroke,
-      fill: SETTINGS.colors.point.highlighted.fill
     }
   }
   
   else {
-    color = { stroke: customColor.stroke || SETTINGS.colors.point.idle.stroke }
+    color = {
+      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
+      fill: SETTINGS.colors.point.fill
+    }
   }
 
   Draw.circle( x, y, r, color );

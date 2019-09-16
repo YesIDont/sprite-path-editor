@@ -4,44 +4,39 @@ html, body {
 }
 
 /* line 7, sass/_rawElements.sass */
-body {
-  background-color: #111111;
-}
-
-/* line 10, sass/_rawElements.sass */
 input {
   width: 11px;
   height: 11px;
 }
 
-/* line 14, sass/_rawElements.sass */
+/* line 11, sass/_rawElements.sass */
 canvas {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-/* line 19, sass/_rawElements.sass */
+/* line 16, sass/_rawElements.sass */
 h1 {
   font-size: 35px;
 }
 
-/* line 22, sass/_rawElements.sass */
+/* line 19, sass/_rawElements.sass */
 h2 {
   font-size: 25px;
 }
 
-/* line 25, sass/_rawElements.sass */
+/* line 22, sass/_rawElements.sass */
 h3 {
   font-size: 20px;
 }
 
-/* line 28, sass/_rawElements.sass */
+/* line 25, sass/_rawElements.sass */
 h4 {
   font-size: 18px;
 }
 
-/* line 31, sass/_rawElements.sass */
+/* line 28, sass/_rawElements.sass */
 button {
   cursor: pointer;
 }
@@ -379,6 +374,19 @@ input.button + button img {
   cursor: pointer;
 }
 /* line 20, sass/_workspace.sass */
+.workspace-settings .single-option {
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  border-top: 1px solid #575757;
+}
+/* line 25, sass/_workspace.sass */
+.workspace-settings .single-option p {
+  margin-top: 7px;
+  line-height: 14px;
+  font-size: 11px;
+  color: #999;
+}
+/* line 31, sass/_workspace.sass */
 .workspace-settings-switch-background {
   width: 25px;
   height: 25px;

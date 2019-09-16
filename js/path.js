@@ -5,7 +5,12 @@ const Path = function( points, id, name ) {
   this.id = id || 0;
   this.name = name || '';
   this.points = points;
-  this.color = randomRGB();
+  let color = randomRGB();
+  this.stroke = color;
+  this.fill = color.replace(
+    /\d{1,3}\, 1 \)/,
+    '125, 0.3 )'
+  );
   this.isSelected = false;
   this.isHighlighted = false;
   this.isVisible = true;
@@ -78,23 +83,31 @@ Path.prototype.draw = function() {
 
   let color;
 
-  if( this.isSelected ) color = { stroke: SETTINGS.overridePathsColors
+  if( this.isSelected ) color = {
+    stroke: SETTINGS.colors.overridePathsColors
     ? SETTINGS.colors.path.selected.stroke
-    : this.color
+    : this.stroke,
+
+    fill: SETTINGS.colors.overridePathsColors
+    ? SETTINGS.colors.path.selected.fill
+    : this.fill
   }
 
-  // else if( this.isHighlighted ) color = { stroke: SETTINGS.colors.path.highlighted.stroke }
+  else color = {
+    stroke: SETTINGS.colors.overridePathsColors
+    ? SETTINGS.colors.path.stroke
+    : this.stroke,
 
-  else color = { stroke: SETTINGS.overridePathsColors
-    ? SETTINGS.colors.path.idle.stroke
-    : this.color
+    fill: SETTINGS.colors.overridePathsColors
+    ? SETTINGS.colors.path.fill
+    : this.fill
   }
 
   this.AABB.draw();
 
   Draw.polygon( this.points, color );
 
-  this.points.forEach( point =>  point.draw( color ) )
+  this.points.forEach( point =>  point.draw( color ))
 
   return this
 };

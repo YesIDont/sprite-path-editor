@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <!-- illustrator reference
+    https://i.stack.imgur.com/NQbhF.png
+  -->
   
   <head>
     <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
@@ -57,7 +60,7 @@
         </p>
 
       <div class='content scrollbar'>
-        <ul></ul>
+        <ul class='paths-container'></ul>
       </div>
     </div>
 
@@ -94,6 +97,7 @@
     <script src='js/keyboard.js'></script>
     <script src='js/mouse.js'></script>
     <script src='js/tools.js'></script>
+    <script src='js/components/ListItem.js'></script>
 
     <script>
       let scrolls = [];
@@ -101,43 +105,16 @@
         scrolls[ el ] = new SimpleBar( el, { forceVisible: true, autoHide: false } )
       })
 
-      pathsList.add = function( i ) {
-        let li = document.createElement('li');
-        li.innerHTML = `
-          <input type='checkbox' id='${i.id}' class='switch selection'/>
-          <span></span>
+      pathsList.addPath = function( item ) {
 
-          <span class='name'>${i.name}</span>
+        let li = ListItem( item );
 
-          <input type='checkbox' id='${i.id}' class='switch visibility'/>
-          <span></span>
-        `;
-        // text = document.createTextNode(text);
-        // li.appendChild( text );
-        li.className = 'path children-v-middle';
-        li.id = i.id;
-        
-        // select / unselect item
-        li.children[0].on('click', e => {
-          let item = loadedImage.paths.filter( p => {
-            return p.id === parseInt( e.target.id )
-          })[0]
-
-          if( e.target.checked ) {
-            item.select()
-            mouse.selection.add( item )
-          }
-          else {
-            item.unSelect()
-            mouse.selection.remove( item )
-          }
+        // add points listing
+        let points = ul({ class: 'points' });
+        item.points.forEach( p => {
+          points.appendChild( ListItem( p ))
         })
-
-        // show / hide item
-        li.children[3].on('click', e => {
-          if( e.target.checked ) loadedImage.paths[ e.target.id ].hide()
-          else loadedImage.paths[ e.target.id ].show()
-        })
+        li.appendChild( points );
         
         this.appendChild( li )
       }
@@ -155,13 +132,13 @@
             mouse.selection.add( p )
           })
           listItems.forEach( i => {
-            i.children[0].checked = true
+            i.getElementsByClassName('selection')[0].checked = true
           })
         }
         else {
           loadedImage.paths.forEach( p => p.unSelect())
           listItems.forEach( i => {
-            i.children[0].checked = false
+            i.getElementsByClassName('selection')[0].checked = false
           })
           mouse.selection.clear()
         }
@@ -174,13 +151,13 @@
         if( e.target.checked ) {
           loadedImage.paths.forEach( p => p.hide() )
           listItems.forEach( i => {
-            i.children[3].checked = true
+            i.getElementsByClassName('visibility')[0].checked = true
           })
         }
         else {
           loadedImage.paths.forEach( p => p.show() )
           listItems.forEach( i => {
-            i.children[3].checked = false
+            i.getElementsByClassName('visibility')[0].checked = false
           })
         }
       });
@@ -227,7 +204,7 @@
         // add computed paths to 'Paths' panel
         wait(
           () => loadedImage.arePathsLoaded(),
-          () => loadedImage.paths.forEach( p => pathsList.add( p ))
+          () => loadedImage.paths.forEach( p => pathsList.addPath( p ))
         )
 
         updateWorkspace();

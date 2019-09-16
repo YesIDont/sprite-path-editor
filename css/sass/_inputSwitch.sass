@@ -13,26 +13,23 @@
     height: 13px
     position: absolute
     z-index: 1
-    background: #0279be
+    background-image: url(../img/icons/radio.svg)
+    background-color: transparent
+    background-size: 100%
 
   &:checked + span
-    background: #02be1b
+    background-image: url(../img/icons/radio-selected.svg)
 
   &.visibility
-    float: right
-    right: 25px
-
     + span
-      background: transparent url(../img/icons/eye-open.svg) 100% 100% !important
-      float: right
-      right: 25px
+      background-image: url(../img/icons/eye-open.svg)
 
     &:checked + span
-      background: transparent url(../img/icons/eye.svg) 100% 100% !important
-
-  &.selection
+      background-image: url(../img/icons/eye.svg)
+  
+  &.expansion
     + span
-      background: transparent url(../img/icons/radio.svg) 100% 100% !important
+      background-image: url(../img/icons/chevron-right.svg)
 
     &:checked + span
-      background: transparent url(../img/icons/radio-selected.svg) 100% 100% !important
+      background-image: url(../img/icons/chevron-down.svg)

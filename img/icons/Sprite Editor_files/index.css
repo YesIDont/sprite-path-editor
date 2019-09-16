@@ -309,6 +309,10 @@ input.button + button img {
 .paths .path:not(:last-child) {
   border-bottom: 1px solid #333;
 }
+/* line 76, sass/_paths.sass */
+.paths .path:hover {
+  background: #155f91;
+}
 /* line 79, sass/_paths.sass */
 .paths .path-selection {
   margin-right: 3px;
@@ -317,29 +321,25 @@ input.button + button img {
 .paths .path .name {
   margin-left: 35px;
 }
-/* line 85, sass/_paths.sass */
-.paths .path .points {
+/* line 86, sass/_paths.sass */
+.paths .path .points.hidden {
   display: none;
 }
-/* line 88, sass/_paths.sass */
+/* line 89, sass/_paths.sass */
 .paths .path .points .point {
   padding: 2px 0;
 }
-/* line 91, sass/_paths.sass */
+/* line 92, sass/_paths.sass */
 .paths .path .points .point:first-child {
   margin-top: 5px;
 }
-/* line 94, sass/_paths.sass */
+/* line 95, sass/_paths.sass */
 .paths .path .points .point:not(:last-child) {
   border-bottom: 1px solid #333;
 }
-/* line 97, sass/_paths.sass */
+/* line 98, sass/_paths.sass */
 .paths .path .points .point .name {
   margin-left: 45px;
-}
-/* line 100, sass/_paths.sass */
-.paths .path .expansion:checked ~ .points {
-  display: initial;
 }
 
 /* line 1, sass/_workspace.sass */

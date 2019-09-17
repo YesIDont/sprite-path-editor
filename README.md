@@ -12,9 +12,9 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 - [x] toolbar with api alowing for quick addition of new tools
 - [x] css clases for panels sliding from outside the window
 - [ ] path & points panel with
-  - [ ] list of selectable:
+  - [x] list of selectable:
     - [x] paths
-    - [ ] points
+    - [x] points
   - [x] tools:
     - [x] select/unselect all
     - [x] hide/show all
@@ -42,7 +42,8 @@ Online sprite's paths editor allowing to create vector data for game physics eng
     - [x] red pink
     - [x] light green
     - [ ] color picker for custom colors
-  - [ ] paths & points colors
+  - [x] paths colors override with default color
+  - [ ] paths & points colors  
 - [ ] persist options in form of:
   - [ ] local state
   - [ ] cookies

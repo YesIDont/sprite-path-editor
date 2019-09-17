@@ -47,8 +47,9 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 - [ ] persist options in form of:
   - [ ] local state
   - [ ] cookies
-- [ ] export paths data as:
-  - [ ] json
+- [ ] export:
+  - [ ] paths data as json
+  - [ ] options allowing to select which info for paths and points (e.g. name, position etc.) should be exported
 
 Final optimisation to do:
 - [ ] sortout which elements should be animated with css

@@ -23,6 +23,9 @@ Online sprite's paths editor allowing to create vector data for game physics eng
     - [x] selected / unselected
     - [ ] half selected (for paths with only some of their points selected)
     - [x] visible / hidden
+  - [ ] right click menu on each item (path or point):
+    - [ ] change name
+    - [ ] change color
 - [ ] selection tool allowing to select points:
   - [ ] single points
   - [ ] multiple points
@@ -51,7 +54,7 @@ Online sprite's paths editor allowing to create vector data for game physics eng
   - [ ] paths data as json
   - [ ] options allowing to select which info for paths and points (e.g. name, position etc.) should be exported
 
-Final optimisation to do:
+### Final optimisation to do:
 - [ ] sortout which elements should be animated with css
 - [ ] create sprite out of all icons / images
 - [ ] final code refactor

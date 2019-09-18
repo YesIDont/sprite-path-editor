@@ -2,7 +2,17 @@ Object.prototype.on = function( event, callback, bubble ) {
   this.addEventListener( event, callback, bubble || false )
 };
 
-const get = function( name ) {
+const set = {};
+
+set.pathFillOpacity = function( n ) {
+  SETTINGS.colors.path.fill = SETTINGS.colors.path.fill.replace(
+    /\, \d\.?\d?\d? \)/,
+    `, ${n} )`
+  )
+}
+
+const get = function( name, parent ) {
+  if( parent ) return Array.from( parent.querySelectorAll( name ))
   return Array.from( document.querySelectorAll( name ))
 }
 
@@ -21,6 +31,33 @@ get.tag = function( name ) {
 get.first = function( name ) {
   return Array.from( document.querySelectorAll( name ))[0]
 };
+
+get.HTMLelementX = function( element ) {
+  var curleft = 0;
+  if ( element.offsetParent ) {
+    do {
+			curleft += element.offsetLeft;
+    } while ( element = element.offsetParent );
+
+    return curleft;
+  }
+}
+
+get.HTMLelementPos = function( element ) {
+  var curleft = curtop = 0;
+  if ( element.offsetParent ) {
+    do {
+			curleft += element.offsetLeft;
+      curtop += element.offsetTop;
+    } while ( element = element.offsetParent );
+
+    return { x: curleft, y: curtop };
+  }
+}
+
+get.fixed = function( n, i ) {
+  return Number(n.toString().substring(0, n.toString().indexOf(".") + i + 1))
+}
 
 const add = function( element, content ) {
   let el = document.createElement( element );
@@ -82,25 +119,37 @@ const isPointRectColliding = function( p, r, offset ) {
 }
 
 function element( options ) {
-  let element = document.createElement( options.type );
-  if( options.class   ) element.className = options.class;
-  if( options.id      ) element.id        = options.id;
-  if( options.onclick ) element.on('click', options.onclick )
+  let element = document.createElement( options.element );
+
+  if( options.class      ) element.className = options.class;
+  if( options.id         ) element.id        = options.id;
+  if( options.background ) element.style.background = options.background;
+  if( options.onclick    ) element.on('click', options.onclick );
+  
 
   return element
 }
 
+function div( options ) {
+  return element({ ...options, element:'div' })
+}
+
 function ul( options ) {
-  return element({ ...options, type:'ul' })
+  return element({ ...options, element:'ul' })
 }
 
 function span( options ) {
-  return element({ ...options, type:'span' })
+  return element({ ...options, element:'span' })
 }
 
 function input( options ) {
   if( !options.type ) options.type = 'checkbox';
-  return element({ ...options, type:'span' })
+  return element({ ...options, element:'span' })
+}
+
+function button( options ) {
+  if( !options.type ) options.type = 'button';
+  return element({ ...options, element:'button' })
 }
 
 function randomRGB() {

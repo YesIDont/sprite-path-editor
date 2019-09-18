@@ -85,9 +85,22 @@
           <span class='bg-green'></span>
         </span>
 
-        <div class='single-option' id='paths-color-verride'>
+        <div class='single-option' id='paths-color-override'>
           <input type="checkbox"> <span>Override paths colors with default color</span>
-          <p>Check this if you don't wan't your paths to be displayed in their own, randomly assigned color. Option below allows to choose default colors for paths and points.</p>
+          <div class='description'>Check this if you don't wan't your paths to be displayed in their own, randomly assigned color.</div>
+        </div>
+
+        <div class='single-option' id='paths-color-change'>
+          <span>Default overlay color for all paths</span>
+          <div class='description'></div>
+          <div class="range-slider opacity">
+            <span class="label min">0%</span>
+            <span class="label name">Opacity:</span>
+            <span class="label value">40%</span>
+            <span class="label max">100%</span>
+            <button style='left: 97px'></button>
+            <div class="rail"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -107,6 +120,7 @@
     <script src='js/mouse.js'></script>
     <script src='js/tools.js'></script>
     <script src='js/components/ListItem.js'></script>
+    <script src="js/dragRangeSlider.js"></script>
 
     <script>
       let scrolls = [];
@@ -131,7 +145,8 @@
       // change background color
       get('.workspace-settings .background span').forEach(
         element => element.on('click', () => body.className = element.className ));
-      body.className = 'bg-chessboard';
+      // body.className = 'bg-chessboard';
+      body.className = 'bg-white';
       
       // select / unselect all paths
       get('.paths .list-actions #select-all')[0].on('click', e => {
@@ -175,7 +190,7 @@
       });
 
       // turn on/of paths random colors override
-      get.id('paths-color-verride').on('click', e => {
+      get.id('paths-color-override').on('click', e => {
         if( e.target.checked ) {
           SETTINGS.colors.overridePathsColors = true
         }
@@ -183,6 +198,23 @@
           SETTINGS.colors.overridePathsColors = false
         }
       })
+
+      // optional path colors
+      SETTINGS.colors.path.optional.forEach( color => {
+        get('#paths-color-change .description')[0].appendChild( div({
+            background: color,
+            class: 'squareButton small',
+            onclick: e => {
+              SETTINGS.colors.path.fill = color.replace(/\, \d\.?\d?\d? \)/, ', 0.4 )');
+              get('.range-slider .value')[0].innerHTML = '40%';
+              get('.range-slider button')[0].style.left = '97px'
+            }
+          })
+        );
+      });
+
+      // path opacity range slider
+      dragRangeSlider( get('.range-slider button')[0] );
       
       let loadedImage;
 
@@ -227,7 +259,7 @@
         canvas.offset = { x: 347, y: 97 };
         SETTINGS.scale = 6.75;
         SETTINGS.colors.overridePathsColors = true;
-        get('#paths-color-verride input')[0].checked = true;
+        get('#paths-color-override input')[0].checked = true;
 
 
         updateWorkspace();

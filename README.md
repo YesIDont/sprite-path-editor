@@ -46,7 +46,7 @@ Online sprite's paths editor allowing to create vector data for game physics eng
     - [x] light green
     - [ ] color picker for custom colors
   - [x] paths colors override with default color
-  - [ ] paths & points colors  
+  - [x] paths colors and opacity tool
 - [ ] persist options in form of:
   - [ ] local state
   - [ ] cookies
@@ -55,6 +55,10 @@ Online sprite's paths editor allowing to create vector data for game physics eng
   - [ ] options allowing to select which info for paths and points (e.g. name, position etc.) should be exported
 
 ### Final optimisation to do:
-- [ ] sortout which elements should be animated with css
+- [ ] switch drawing points with vectors to drawing svg or png
+- [ ] sort out which elements should be animated with css
 - [ ] create sprite out of all icons / images
+- [ ] add selective canvas update for only when:
+  - [ ] camera moved
+  - [ ] change was triggered to draw part of canvas differently
 - [ ] final code refactor

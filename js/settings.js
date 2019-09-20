@@ -38,6 +38,8 @@ let SETTINGS = {
         'rgba( 192, 192, 192, 0.9 )'
       ]
     },
-    AABB: { stroke: 'rgba( 125, 125, 125, 0.5 )' }
+    AABB: {
+      stroke: 'rgba( 125, 125, 125, 0.5 )'
+    }
   }
 }

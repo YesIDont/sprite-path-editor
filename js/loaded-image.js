@@ -18,16 +18,21 @@ const LoadedImage = function( path ) {
     this.svg = ImageTracer.imagedataToSVG(
       this.imageData,
       {
-        ltres:             1,
+        corsenabled:       false,
+        ltres:             5,
         qtres:             1,
         pathomit:          8,
         rightangleenhance: false,
         blurradius:        0,
+        numberofcolors:    2,
+        linefilter:        true,
+        blurradius:        3,
+        blurdelta:         200,
         pal: [
           {
-            "r": 255,
-            "g": 255,
-            "b": 255,
+            "r": 0,
+            "g": 0,
+            "b": 0,
             "a": 0
           },
           {
@@ -114,31 +119,31 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     return new Path( points, index, `Path ${index}` )
   })
 
-  // // remove duplicate paths
-  // for( let i = 0; i < paths.length; i++ ) {
-  //   let path = paths[ i ];
+  // remove duplicate paths
+  for( let i = 0; i < paths.length; i++ ) {
+    let path = paths[ i ];
 
-  //   // check if path's AABB contains all other paths, if it's does it means it was builded on image's border - remove it
-  //   let containsAll = true;
-  //   paths.forEach( p => {
-  //     if( !this.arePathsSimilar( path, p )) containsAll = false
-  //   });
+    // check if path's AABB contains all other paths, if it's does it means it was builded on image's border - remove it
+    let containsAll = true;
+    paths.forEach( p => {
+      if( !this.arePathsSimilar( path, p )) containsAll = false
+    });
 
-  //   if( containsAll ) {
-  //     paths.splice( i, 1 );
-  //     continue
-  //   };
+    if( containsAll ) {
+      paths.splice( i, 1 );
+      continue
+    };
 
-  //   // check if paths has any similar duplicates and remove them if it does
-  //   for( let n = 0; n < paths.length; n++ ) {
-  //     if( path.id === paths[ n ].id ) continue;
+    // check if paths has any similar duplicates and remove them if it does
+    for( let n = 0; n < paths.length; n++ ) {
+      if( path.id === paths[ n ].id ) continue;
 
-  //     if( this.arePathsSimilar( path, paths[ n ] )) {
-  //       paths.splice( n, 1 );
-  //       n--
-  //     }
-  //   }
-  // };
+      if( this.arePathsSimilar( path, paths[ n ] )) {
+        paths.splice( n, 1 );
+        n--
+      }
+    }
+  };
 
   // cicle again all paths and reset their id's to mach
   paths.forEach(( p, i ) => {

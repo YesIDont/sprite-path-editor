@@ -20,18 +20,17 @@ canvas.on( 'click', function() {
   if( selection && mouse.isColliding && single ) {
      if( single.isSelected ) {
       single.isSelected = false;
-      single.unselectUI();
+      single.unSelect();
       mouse.selection.remove( single )
      }
      else {
       single.isSelected = true;
-      single.selectUI();
+      single.select();
       mouse.selection.add( single )
      }
   }
 
   if( pointDelete && single !== undefined && !( 32 in keysDown )) {
-    single.removeFromUI();
     single.remove();
   }
 })

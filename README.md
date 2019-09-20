@@ -9,7 +9,13 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 ### TO DO / DONE:
 - [x] apply path tracing library for convex and concave raster shapes
 - [x] canvas scaling and rescaling on window size change event
-- [x] toolbar with api alowing for quick addition of new tools
+- [ ] trace options
+- [ ] modal / window
+- [ ] toolbar with api alowing for easy addition of new tools
+  - [x] body
+  - [x] tooltip with hovering short description
+  - [ ] mesage to abtove tooltip that right click on icon opens full description
+  - [ ] full description for each tool
 - [x] css clases for panels sliding from outside the window
 - [ ] path & points panel with
   - [x] list of selectable:
@@ -23,9 +29,13 @@ Online sprite's paths editor allowing to create vector data for game physics eng
     - [x] selected / unselected
     - [ ] half selected (for paths with only some of their points selected)
     - [x] visible / hidden
+    - [ ] number of points in path next to path
   - [ ] right click menu on each item (path or point):
     - [ ] change name
     - [ ] change color
+  - [ ] show only selected:
+    - [ ] paths
+    - [ ] points
 - [ ] selection tool allowing to select points:
   - [ ] single points
   - [ ] multiple points

@@ -12,23 +12,15 @@ const Point = function( x, y, parent ) {
   return this
 };
 
-Point.prototype.select = function() {
-  this.isSelected = true;
-  return this
-}
+// Point.prototype.select = function() {
+//   this.isSelected = true;
+//   return this
+// }
 
-Point.prototype.unSelect = function() {
-  this.isSelected = false;
-  return this
-}
-
-Point.prototype.selectUI = function() {
-  return this
-}
-
-Point.prototype.unselectUI = function() {
-  return this
-}
+// Point.prototype.unSelect = function() {
+//   this.isSelected = false;
+//   return this
+// }
 
 Point.prototype.show = function() {
   this.isVisible = true;
@@ -40,10 +32,10 @@ Point.prototype.hide = function() {
   return this
 }
 
-Point.prototype.remove = function() {
-  let index = this.parent.points.findIndex( p => p.id === this.id );
-  this.parent.points.splice( index, 1 );
-}
+// Point.prototype.remove = function() {
+//   let index = this.parent.points.findIndex( p => p.id === this.id );
+//   this.parent.points.splice( index, 1 );
+// }
 
 Point.prototype.set = function( x, y ) {
   this.x = x;

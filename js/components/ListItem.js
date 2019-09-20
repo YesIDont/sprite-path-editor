@@ -1,7 +1,7 @@
 function ListItem( i, color ) {
   // i: item
 
-  const { id, name } = i;
+  const { id, name, parent } = i;
 
   let li = document.createElement('li');
   li.innerHTML = `
@@ -72,18 +72,21 @@ function ListItem( i, color ) {
         }
     });
 
-    i.selectUI = function() {
+    i.select = function() {
+      i.isSelected = true;
       li.getElementsByClassName('selection')[0].checked = true;
       return i
     }
 
-    i.unselectUI = function() {
+    i.unSelect = function() {
+      i.isSelected = false;
       li.getElementsByClassName('selection')[0].checked = false;
       return i
     }
 
-    i.removeFromUI = function() {
-      li.remove()
+    i.remove = function() {
+      let index = parent.points.findIndex( p => p.id === id );
+      parent.points.splice( index, 1 );
     }
 
     // show / hide point
@@ -92,7 +95,7 @@ function ListItem( i, color ) {
 
         else {
           i.show();
-          i.parent.show( true );
+          parent.show( true );
         }
     })
   }

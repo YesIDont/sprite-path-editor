@@ -9,11 +9,6 @@ let SETTINGS = {
       stroke: 'rgba( 0, 0, 0, 1 )',
       fill: 'rgba( 255, 255, 255, 1 )',
 
-      highlighted: {
-        stroke: 'rgba( 0, 0, 0, 1 )',
-        fill: 'rgba( 255, 255, 255, 1 )'
-      },
-
       selected: {
         stroke: 'rgba( 0, 0, 0, 1 )',
         fill: 'rgba( 255, 255, 255, 1 )'

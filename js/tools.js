@@ -20,6 +20,7 @@ prevSelection = select;
 
 get.class('select-remove')[0].on('click', function() {
   canvas.allow('pointDelete');
+  canvas.className = '';
 });
 
 get.class('pan-viewport')[0].on('click', function() {

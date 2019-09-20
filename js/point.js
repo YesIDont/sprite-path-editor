@@ -22,6 +22,14 @@ Point.prototype.unSelect = function() {
   return this
 }
 
+Point.prototype.selectUI = function() {
+  return this
+}
+
+Point.prototype.unselectUI = function() {
+  return this
+}
+
 Point.prototype.show = function() {
   this.isVisible = true;
   return this
@@ -74,25 +82,27 @@ Point.prototype.draw = function( customColor ) {
   if( !this.isVisible ) return
 
   const { x, y } = this.getCanvasPos();
-  let color, r = this.r;
+  let r = this.r;
 
   if( this.isHighlighted ) r = 5;
 
   if( this.isSelected ) {
-    color = {
-      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
+    Draw.circle( x, y, r + 1, {
+      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.selected.stroke,
       fill: SETTINGS.colors.point.selected.fill
-    }
+    });
+    Draw.circle( x, y, r - 1, {
+      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
+      fill: SETTINGS.colors.point.selected.stroke
+    });
   }
   
   else {
-    color = {
+    Draw.circle( x, y, r, {
       stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
       fill: SETTINGS.colors.point.fill
-    }
+    });
   }
-
-  Draw.circle( x, y, r, color );
 
   return this
 };

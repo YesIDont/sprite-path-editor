@@ -62,6 +62,17 @@ get.fixed = function( n, i ) {
   return Number(n.toString().substring(0, n.toString().indexOf(".") + i + 1))
 }
 
+const body = get.tag('body')[0];
+const pathsList = get('.paths ul')[0];
+
+get.pathUi = function( item ) {
+  return get(`.path.id-${ item.id }`)
+};
+
+get.pointUi = function( item ) {
+  return get(`.path.id-${ item.parent.id } .point.id${ item.id }`)
+}
+
 const add = function( element, content ) {
   let el = document.createElement( element );
   
@@ -76,10 +87,6 @@ const wait = function( condition, callback, time ) {
     else wait( condition, callback, time )
   }, 1);
 }
-
-const body = get.tag('body')[0];
-
-const pathsList = get('.paths ul')[0];
 
 let utils = {
   get: {

@@ -9,7 +9,14 @@ const Selection = function( parrentReference ) {
 
   this.remove = function( beingRemoved ) {
     let index = this.items.findIndex( i => {
-      return i.id === beingRemoved.id && i.type === beingRemoved
+      if( i.type === 'path') {
+        return i.id === beingRemoved.id && i.type === beingRemoved.type        
+      }
+      else {
+        return i.id === beingRemoved.id
+          && i.type === beingRemoved.type
+            && i.parent.id === beingRemoved.parent.id
+      }
     })
 
     this.items.splice( index, 1 );
@@ -29,7 +36,6 @@ const Selection = function( parrentReference ) {
       }
       else {
         get(`.path.id-${ i.parent.id } .point.id-${ i.id }`)[ 0 ].remove()
-
       }
       i.remove()
     })
@@ -69,4 +75,7 @@ const Selection = function( parrentReference ) {
       }
     )
   }
+
+  // single selection is used for items mouse is hovering over
+  this.single = undefined;
 };

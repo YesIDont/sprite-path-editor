@@ -63,22 +63,23 @@ button {
   background: none;
   cursor: pointer;
   display: block;
+  z-index: 4;
 }
-/* line 8, sass/_icons.sass */
+/* line 9, sass/_icons.sass */
 .ico img {
   width: 17px;
   height: 17px;
   margin: 4px;
 }
-/* line 13, sass/_icons.sass */
+/* line 14, sass/_icons.sass */
 .ico:hover {
   background-color: #222;
 }
-/* line 16, sass/_icons.sass */
+/* line 17, sass/_icons.sass */
 .ico-selected {
   background: #111 !important;
 }
-/* line 19, sass/_icons.sass */
+/* line 20, sass/_icons.sass */
 .ico-small {
   background: none;
   width: 21px;
@@ -88,14 +89,38 @@ button {
   padding: 3px;
   margin: 0 2px;
 }
-/* line 28, sass/_icons.sass */
+/* line 29, sass/_icons.sass */
 .ico-small:hover {
   background: #000000;
 }
-/* line 31, sass/_icons.sass */
+/* line 32, sass/_icons.sass */
 .ico-small img {
   width: 15px;
   height: 15px;
+}
+/* line 36, sass/_icons.sass */
+.ico::after {
+  display: block;
+  content: attr(tooltip);
+  position: relative;
+  top: -35px;
+  text-align: center;
+  box-sizing: content-box;
+  min-width: 150px;
+  padding: 5px 8px;
+  background: #fff;
+  color: #444;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  font-size: 13px;
+  margin-left: 28px;
+  visibility: hidden;
+  z-index: 111;
+}
+/* line 55, sass/_icons.sass */
+.ico:hover::after {
+  visibility: visible;
 }
 
 /* line 1, sass/_inputButton.sass */
@@ -226,8 +251,9 @@ button {
   width: 25px;
   height: 100vh;
   padding: 7px 5px 5px 5px;
+  z-index: 10;
 }
-/* line 9, sass/_tools.sass */
+/* line 10, sass/_tools.sass */
 .tools .ico {
   display: block;
   margin-bottom: 5px;
@@ -242,8 +268,9 @@ button {
   background: #222;
   width: 250px;
   padding: 0;
+  z-index: 2 !important;
 }
-/* line 10, sass/_paths.sass */
+/* line 11, sass/_paths.sass */
 .paths .header {
   background: #124f8c;
   height: 11px;
@@ -254,49 +281,49 @@ button {
   position: absolute;
   text-align: center;
 }
-/* line 20, sass/_paths.sass */
+/* line 21, sass/_paths.sass */
 .paths .content {
   height: 100vh;
   padding: 0;
   width: 100%;
 }
-/* line 25, sass/_paths.sass */
+/* line 26, sass/_paths.sass */
 .paths ul.paths-container {
   margin-top: 55px;
 }
-/* line 28, sass/_paths.sass */
+/* line 29, sass/_paths.sass */
 .paths .list-actions {
   position: absolute;
   background: #222;
   display: block;
   border-bottom: 1px solid #333222;
-  z-index: 1;
+  z-index: 2;
   width: 85%;
   padding: 3px 10% 3px 5%;
   top: 22px;
   height: 22px;
 }
-/* line 41, sass/_paths.sass */
+/* line 42, sass/_paths.sass */
 .paths #hide-all,
 .paths #hide-all + span,
 .paths #select-all,
 .paths #select-all + span {
   margin-top: 5px;
 }
-/* line 47, sass/_paths.sass */
+/* line 48, sass/_paths.sass */
 .paths #remove-selected {
   margin-left: 15px;
 }
-/* line 51, sass/_paths.sass */
+/* line 52, sass/_paths.sass */
 .paths .switch.expansion, .paths .switch.expansion + span {
   left: 40px;
 }
-/* line 55, sass/_paths.sass */
+/* line 56, sass/_paths.sass */
 .paths .switch.visibility, .paths .switch.visibility + span {
   float: right;
   left: 215px;
 }
-/* line 60, sass/_paths.sass */
+/* line 61, sass/_paths.sass */
 .paths .path {
   display: block;
   font-size: 11px;
@@ -307,15 +334,15 @@ button {
   padding: 5px 3% 5px 2%;
   margin-left: 3%;
 }
-/* line 70, sass/_paths.sass */
+/* line 71, sass/_paths.sass */
 .paths .path p {
   font-size: 11px;
 }
-/* line 73, sass/_paths.sass */
+/* line 74, sass/_paths.sass */
 .paths .path:not(:last-child) {
   border-bottom: 1px solid #333;
 }
-/* line 79, sass/_paths.sass */
+/* line 80, sass/_paths.sass */
 .paths .path .path-color {
   width: 4px;
   height: 18px;
@@ -324,40 +351,40 @@ button {
   left: 32px;
   margin-top: -3px;
 }
-/* line 87, sass/_paths.sass */
+/* line 88, sass/_paths.sass */
 .paths .path-selection {
   margin-right: 3px;
 }
-/* line 90, sass/_paths.sass */
+/* line 91, sass/_paths.sass */
 .paths .path .name {
   margin-left: 45px;
 }
-/* line 93, sass/_paths.sass */
+/* line 94, sass/_paths.sass */
 .paths .path .points {
   display: none;
 }
-/* line 96, sass/_paths.sass */
+/* line 97, sass/_paths.sass */
 .paths .path .points .point {
   padding: 2px 0;
 }
-/* line 99, sass/_paths.sass */
+/* line 100, sass/_paths.sass */
 .paths .path .points .point:first-child {
   margin-top: 5px;
 }
-/* line 102, sass/_paths.sass */
+/* line 103, sass/_paths.sass */
 .paths .path .points .point:not(:last-child) {
   border-bottom: 1px solid #333;
 }
-/* line 105, sass/_paths.sass */
+/* line 106, sass/_paths.sass */
 .paths .path .points .point .name {
   margin-left: 60px;
 }
-/* line 108, sass/_paths.sass */
+/* line 109, sass/_paths.sass */
 .paths .path .points .point .path-color {
   height: 13px;
   margin-top: -1px;
 }
-/* line 112, sass/_paths.sass */
+/* line 113, sass/_paths.sass */
 .paths .path .expansion:checked ~ .points {
   display: initial;
 }

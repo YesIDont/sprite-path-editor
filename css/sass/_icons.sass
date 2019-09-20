@@ -4,6 +4,7 @@
   background: none
   cursor: pointer
   display: block
+  z-index: 4
   
   img 
     width: 17px
@@ -31,3 +32,25 @@
     img
       width: 15px
       height: 15px
+  
+  &::after
+    display: block
+    content: attr(tooltip)
+    position: relative
+    top: -35px
+    text-align: center
+    box-sizing: content-box
+    min-width: 150px
+    padding: 5px 8px
+    background: #fff
+    color: #444
+    border-radius: 4px
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2)
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.3)
+    font-size: 13px
+    margin-left: 28px
+    visibility: hidden
+    z-index: 111
+
+  &:hover::after
+    visibility: visible

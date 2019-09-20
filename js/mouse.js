@@ -8,6 +8,7 @@ const Pointer = function() {
     right: false
   };
   this.selection = new Selection( this );
+  this.isColliding = false;
 };
 
 Pointer.prototype.getPos = function( e ) {

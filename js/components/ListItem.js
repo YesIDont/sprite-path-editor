@@ -31,9 +31,7 @@ function ListItem( i, color ) {
 
   if( i.type === 'path' ) {
     // select / unselect path
-    on(
-      li.getElementsByClassName('selection')[0],
-      'click', e => {
+    li.getElementsByClassName('selection')[0].on( 'click', e => {
         if( e.target.checked ) {
           i.select();
           mouse.selection.add( i );
@@ -49,9 +47,7 @@ function ListItem( i, color ) {
     })
 
     // show / hide path
-    on(
-      li.getElementsByClassName('visibility')[0],
-      'click', e => {
+    li.getElementsByClassName('visibility')[0].on( 'click', e => {
         if( e.target.checked ) {
           i.hide();
           get(`.path.id-${ id } .visibility`).forEach( point => point.checked = true )
@@ -65,9 +61,7 @@ function ListItem( i, color ) {
 
   else if( i.type === 'point' ) {
     // select / unselect point
-    on(
-      li.getElementsByClassName('selection')[0],
-      'click', e => {
+    li.getElementsByClassName('selection')[0].on( 'click', e => {
         if( e.target.checked ) {
           i.select();
           mouse.selection.add( i );
@@ -76,12 +70,24 @@ function ListItem( i, color ) {
           i.unSelect();
           mouse.selection.remove( i );
         }
-    })
+    });
+
+    i.selectUI = function() {
+      li.getElementsByClassName('selection')[0].checked = true;
+      return i
+    }
+
+    i.unselectUI = function() {
+      li.getElementsByClassName('selection')[0].checked = false;
+      return i
+    }
+
+    i.removeFromUI = function() {
+      li.remove()
+    }
 
     // show / hide point
-    on(
-      li.getElementsByClassName('visibility')[0],
-      'click', e => {
+    li.getElementsByClassName('visibility')[0].on( 'click', e => {
         if( e.target.checked ) i.hide()
 
         else {
@@ -90,8 +96,6 @@ function ListItem( i, color ) {
         }
     })
   }
-
-
 
   return li
 }

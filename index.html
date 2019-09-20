@@ -151,9 +151,8 @@
       body.className = 'bg-dark';
       
       // select / unselect all paths
-      on(
-        get('.paths .list-actions #select-all')[0],
-        'click', e => {
+      let selectAll = get('.paths .list-actions #select-all')[0];
+      selectAll.on( 'click', e => {
         let listItems = Array.from( pathsList.children );
 
         if( e.target.checked ) {
@@ -174,10 +173,10 @@
         }
       });
       
+      
       // show / hide all
-      on(
-        get('.panel.paths p.list-actions #hide-all')[0],
-        'click', e => {
+      let hideAll = get('.panel.paths p.list-actions #hide-all')[0];
+      hideAll.on( 'click', e => {
         let listItems = Array.from( pathsList.children );
 
         if( e.target.checked ) {
@@ -188,26 +187,24 @@
           loadedImage.paths.forEach( p => p.show() )
           get('.visibility').forEach( v => v.checked = false )
         }
-      });
+      });      
 
       // remove all selected
-      on(
-        get.id('remove-selected'),
-        'click', () => {
-        mouse.selection.removeSelected()
+      get.id('remove-selected').on( 'click', () => {
+        mouse.selection.removeSelected();
+        selectAll.checked = false;
       });
 
       // turn on/of paths random colors override
-      on(
-        get.id('paths-color-override'),
-        'click', e => {
+      let pathsOverride = get('#paths-color-override input')[0];
+      pathsOverride.on( 'click', e => {
         if( e.target.checked ) {
           SETTINGS.colors.overridePathsColors = true
         }
         else {
           SETTINGS.colors.overridePathsColors = false
         }
-      })
+      });
 
       // optional path colors
       SETTINGS.colors.path.optional.forEach( color => {
@@ -259,11 +256,14 @@
           () => loadedImage.paths.forEach( p => pathsList.addPath( p ))
         )
 
-        // canvas.offset = { x: 347, y: 97 };
-        // SETTINGS.scale = 6.75;
+        canvas.offset = { x: 365, y: 148 };
+        SETTINGS.scale = 0.5;
         // SETTINGS.colors.overridePathsColors = true;
         // get('#paths-color-override input')[0].checked = true;
 
+        selectAll.checked = false;
+        hideAll.checked = false;
+        pathsOverride.checked = false;
 
         updateWorkspace();
       });

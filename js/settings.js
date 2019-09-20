@@ -7,7 +7,7 @@ let SETTINGS = {
     overridePathsColors: false,
     point: {
       stroke: 'rgba( 0, 0, 0, 1 )',
-      fill: 'rgba( 255, 255, 255, 0.3 )',
+      fill: 'rgba( 255, 255, 255, 1 )',
 
       highlighted: {
         stroke: 'rgba( 0, 0, 0, 1 )',

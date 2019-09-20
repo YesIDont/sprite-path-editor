@@ -118,6 +118,7 @@
     <script src='js/loaded-image.js'></script>
     <script src='js/keyboard.js'></script>
     <script src='js/mouse.js'></script>
+    <script src="js/canvas-mouse-events.js"></script>
     <script src='js/tools.js'></script>
     <script src='js/components/ListItem.js'></script>
     <script src="js/dragRangeSlider.js"></script>
@@ -146,7 +147,7 @@
       get('.workspace-settings .background span').forEach(
         element => element.on('click', () => body.className = element.className ));
       // body.className = 'bg-chessboard';
-      body.className = 'bg-white';
+      body.className = 'bg-dark';
       
       // select / unselect all paths
       get('.paths .list-actions #select-all')[0].on('click', e => {
@@ -213,7 +214,7 @@
         );
       });
 
-      // path opacity range slider
+      // initiate path opacity range slider
       dragRangeSlider( get('.range-slider button')[0] );
       
       let loadedImage;
@@ -242,7 +243,7 @@
       }
       
       window.on('load', () => {
-        loadedImage = new LoadedImage( 'dummy.png' );
+        loadedImage = new LoadedImage( 'Bananas.png' );
 
         // set initial canvas (vievport) offset used to pan picture
         canvas.offset.set(
@@ -256,10 +257,10 @@
           () => loadedImage.paths.forEach( p => pathsList.addPath( p ))
         )
 
-        canvas.offset = { x: 347, y: 97 };
-        SETTINGS.scale = 6.75;
-        SETTINGS.colors.overridePathsColors = true;
-        get('#paths-color-override input')[0].checked = true;
+        // canvas.offset = { x: 347, y: 97 };
+        // SETTINGS.scale = 6.75;
+        // SETTINGS.colors.overridePathsColors = true;
+        // get('#paths-color-override input')[0].checked = true;
 
 
         updateWorkspace();

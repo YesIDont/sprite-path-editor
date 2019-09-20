@@ -1,5 +1,5 @@
-Object.prototype.on = function( event, callback, bubble ) {
-  this.addEventListener( event, callback, bubble || false )
+const on = function( element, event, callback, bubble ) {
+  element.addEventListener( event, callback, bubble || false )
 };
 
 const set = {};
@@ -124,7 +124,7 @@ function element( options ) {
   if( options.class      ) element.className = options.class;
   if( options.id         ) element.id        = options.id;
   if( options.background ) element.style.background = options.background;
-  if( options.onclick    ) element.on('click', options.onclick );
+  if( options.onclick    ) on( element, 'click', options.onclick );
   
 
   return element

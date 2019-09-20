@@ -31,55 +31,63 @@ function ListItem( i, color ) {
 
   if( i.type === 'path' ) {
     // select / unselect path
-    li.getElementsByClassName('selection')[0].on('click', e => {
-      if( e.target.checked ) {
-        i.select();
-        mouse.selection.add( i );
+    on(
+      li.getElementsByClassName('selection')[0],
+      'click', e => {
+        if( e.target.checked ) {
+          i.select();
+          mouse.selection.add( i );
 
-        get(`.path.id-${ id } .selection`).forEach( point => point.checked = true )
-      }
-      else {
-        i.unSelect();
-        mouse.selection.remove( i );
+          get(`.path.id-${ id } .selection`).forEach( point => point.checked = true )
+        }
+        else {
+          i.unSelect();
+          mouse.selection.remove( i );
 
-        get(`.path.id-${ id } .selection`).forEach( point => point.checked = false )
-      }
+          get(`.path.id-${ id } .selection`).forEach( point => point.checked = false )
+        }
     })
 
     // show / hide path
-    li.getElementsByClassName('visibility')[0].on('click', e => {
-      if( e.target.checked ) {
-        i.hide();
-        get(`.path.id-${ id } .visibility`).forEach( point => point.checked = true )
-      }
-      else {
-        i.show()
-        get(`.path.id-${ id } .visibility`).forEach( point => point.checked = false )
-      }
+    on(
+      li.getElementsByClassName('visibility')[0],
+      'click', e => {
+        if( e.target.checked ) {
+          i.hide();
+          get(`.path.id-${ id } .visibility`).forEach( point => point.checked = true )
+        }
+        else {
+          i.show()
+          get(`.path.id-${ id } .visibility`).forEach( point => point.checked = false )
+        }
     })
   }
 
   else if( i.type === 'point' ) {
     // select / unselect point
-    li.getElementsByClassName('selection')[0].on('click', e => {
-      if( e.target.checked ) {
-        i.select();
-        mouse.selection.add( i );
-      }
-      else {
-        i.unSelect();
-        mouse.selection.remove( i );
-      }
+    on(
+      li.getElementsByClassName('selection')[0],
+      'click', e => {
+        if( e.target.checked ) {
+          i.select();
+          mouse.selection.add( i );
+        }
+        else {
+          i.unSelect();
+          mouse.selection.remove( i );
+        }
     })
 
     // show / hide point
-    li.getElementsByClassName('visibility')[0].on('click', e => {
-      if( e.target.checked ) i.hide()
+    on(
+      li.getElementsByClassName('visibility')[0],
+      'click', e => {
+        if( e.target.checked ) i.hide()
 
-      else {
-        i.show();
-        i.parent.show( true );
-      }
+        else {
+          i.show();
+          i.parent.show( true );
+        }
     })
   }
 

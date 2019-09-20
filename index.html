@@ -117,6 +117,7 @@
     <script src='js/path.js'></script>
     <script src='js/loaded-image.js'></script>
     <script src='js/keyboard.js'></script>
+    <script src='js/selection.js'></script>
     <script src='js/mouse.js'></script>
     <script src="js/canvas-mouse-events.js"></script>
     <script src='js/tools.js'></script>
@@ -145,12 +146,14 @@
 
       // change background color
       get('.workspace-settings .background span').forEach(
-        element => element.on('click', () => body.className = element.className ));
+        element => on( element, 'click', () => body.className = element.className ));
       // body.className = 'bg-chessboard';
       body.className = 'bg-dark';
       
       // select / unselect all paths
-      get('.paths .list-actions #select-all')[0].on('click', e => {
+      on(
+        get('.paths .list-actions #select-all')[0],
+        'click', e => {
         let listItems = Array.from( pathsList.children );
 
         if( e.target.checked ) {
@@ -172,7 +175,9 @@
       });
       
       // show / hide all
-      get('.panel.paths p.list-actions #hide-all')[0].on('click', e => {
+      on(
+        get('.panel.paths p.list-actions #hide-all')[0],
+        'click', e => {
         let listItems = Array.from( pathsList.children );
 
         if( e.target.checked ) {
@@ -186,12 +191,16 @@
       });
 
       // remove all selected
-      get.id('remove-selected').on('click', () => {
+      on(
+        get.id('remove-selected'),
+        'click', () => {
         mouse.selection.removeSelected()
       });
 
       // turn on/of paths random colors override
-      get.id('paths-color-override').on('click', e => {
+      on(
+        get.id('paths-color-override'),
+        'click', e => {
         if( e.target.checked ) {
           SETTINGS.colors.overridePathsColors = true
         }
@@ -236,13 +245,12 @@
         // draw all computed paths and their points
         loadedImage.drawPaths();
 
-        const { x, y } = mouse.getCanvasPos();
-        if( mouse.isDown.left && canvas.allow.actions.selection && !( 32 in keysDown )) mouse.selection.draw();
+        if( mouse.selection.isSelecting ) mouse.selection.draw();
 
         requestAnimationFrame( updateWorkspace );
       }
       
-      window.on('load', () => {
+      on( window, 'load', () => {
         loadedImage = new LoadedImage( 'Bananas.png' );
 
         // set initial canvas (vievport) offset used to pan picture

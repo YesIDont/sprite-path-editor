@@ -66,7 +66,7 @@ canvas.offset = {
   }  
 };
 
-canvas.on('wheel', e => canvas.zoom( e ));
+on( canvas, 'wheel', e => canvas.zoom( e ));
 
 canvas.updateSize = function() {
   this.width = window.innerWidth && document.documentElement.clientWidth
@@ -84,9 +84,9 @@ canvas.updateSize = function() {
 
 canvas.updateSize();
 
-window.addEventListener("resize", canvas.updateSize, false);
+on( window, "resize", canvas.updateSize, false);
 
-canvas.addEventListener('click', () => {
+on( canvas, 'click', function(){
   if( !(32 in keysDown) ) {
     if( canvas.allow.actions.zoomIn ) canvas.zoom( '+' )
     else if( canvas.allow.actions.zoomOut ) canvas.zoom( '-' )

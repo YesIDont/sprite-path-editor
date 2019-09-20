@@ -11,6 +11,13 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 - [x] canvas scaling and rescaling on window size change event
 - [x] toolbar with api alowing for quick addition of new tools
 - [x] css clases for panels sliding from outside the window
+- [ ] redo - do the last action again
+  - [ ] - ui > tools icon
+  - [ ] - ctrl/cmd + alt/option + z
+- [ ] undo - go back to state from before the last change
+  - [ ] - ui > tools icon
+  - [ ] - ctrl/cmd + z
+  - [ ] settings - number indicating how many actions should be possible to undo
 - [ ] path & points panel with
   - [x] list of selectable:
     - [x] paths

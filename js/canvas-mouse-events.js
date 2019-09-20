@@ -13,7 +13,7 @@ on( canvas, "mouseup", function() {
   mouse.selection.end();
 });
 
-on( canvas, 'move', function() {
+canvas.on('mousemove', function() {
 
   let { actions } = canvas.allow;
   
@@ -49,7 +49,7 @@ on( canvas, 'move', function() {
 
     // pan the camera if left mouse button and space bar are down
     // else
-    if( 32 in keysDown || a.panDragging ) {
+    if( 32 in keysDown || actions.panDragging ) {
       canvas.offset.x -= ( mouse.xLast - mouse.x ) * 0.5;
       canvas.offset.y -= ( mouse.yLast - mouse.y ) * 0.5;
     }

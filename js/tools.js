@@ -2,27 +2,37 @@ let tools = get.class('tool');
 // prevSelection is used to hold the last selected item and unselect it when next item is selected
 let prevSelection;
 tools.forEach( tool => {
-  on( tool, 'click', () => {
-    if( prevSelection ) prevSelection.classList.toggle('icon-selected');
-    tool.classList.toggle('icon-selected');
+  tool.on('click', () => {
+    if( prevSelection ) prevSelection.classList.toggle('ico-selected');
+    tool.classList.toggle('ico-selected');
     prevSelection = tool;
   })
 });
 
 let select = get.class('select')[0];
-on( select, 'click', () => canvas.allow('selection'));
+select.on('click', function() {
+  canvas.allow('selection');
+  canvas.className = '';
+});
 // select selection tool at the start
-select.classList.toggle('icon-selected');
+select.classList.toggle('ico-selected');
 prevSelection = select;
 
-let deletePoint = get.class('select-remove')[0];
-on( deletePoint, 'click', () => canvas.allow('pointDelete'));
+get.class('select-remove')[0].on('click', function() {
+  canvas.allow('pointDelete');
+});
 
-let pan = get.class('pan-viewport')[0];
-on( pan, 'click', () => canvas.allow('panDragging'));
+get.class('pan-viewport')[0].on('click', function() {
+  canvas.allow('panDragging');
+  canvas.className = 'cursor-move';
+});
 
-let zoomIn = get.class('zoom-in')[0];
-on( zoomIn, 'click', () => canvas.allow('zoomIn'));
+get.class('zoom-in')[0].on('click', function() {
+  canvas.allow('zoomIn');
+  canvas.className = 'cursor-zoom-in';
+});
 
-let zoomOut = get.class('zoom-out')[0];
-on( zoomOut, 'click', () => canvas.allow('zoomOut'));
+get.class('zoom-out')[0].on('click', function(){
+  canvas.allow('zoomOut');
+  canvas.className = 'cursor-zoom-out';
+});

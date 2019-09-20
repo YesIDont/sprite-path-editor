@@ -1,6 +1,9 @@
 const on = function( element, event, callback, bubble ) {
   element.addEventListener( event, callback, bubble || false )
 };
+Object.prototype.on = function( event, callback, bubble ) {
+  this.addEventListener( event, callback, bubble || false )
+}
 
 const set = {};
 

@@ -75,6 +75,10 @@ button {
   background-color: #222;
 }
 /* line 16, sass/_icons.sass */
+.ico-selected {
+  background: #111 !important;
+}
+/* line 19, sass/_icons.sass */
 .ico-small {
   background: none;
   width: 21px;
@@ -84,11 +88,11 @@ button {
   padding: 3px;
   margin: 0 2px;
 }
-/* line 25, sass/_icons.sass */
+/* line 28, sass/_icons.sass */
 .ico-small:hover {
   background: #000000;
 }
-/* line 28, sass/_icons.sass */
+/* line 31, sass/_icons.sass */
 .ico-small img {
   width: 15px;
   height: 15px;

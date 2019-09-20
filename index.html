@@ -233,12 +233,6 @@
         c.setTransform( 1, 0, 0, 1, 0, 0 );
         c.clearRect( 0, 0, canvas.width, canvas.height );
         c.translate( canvas.offset.x, canvas.offset.y )
-        
-        // coursors
-        if( 32 in keysDown || canvas.allow.actions.panDragging ) canvas.className = 'cursor-move'
-        else if ( canvas.allow.actions.zoomIn ) canvas.className = 'cursor-zoom-in'
-        else if ( canvas.allow.actions.zoomOut ) canvas.className = 'cursor-zoom-out'
-        else canvas.className = '';
 
         // draw loaded image
         loadedImage.draw();

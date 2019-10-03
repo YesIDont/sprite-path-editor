@@ -71,6 +71,7 @@ Online sprite's paths editor allowing to create vector data for game physics eng
 - [ ] export:
   - [ ] paths data as json
   - [ ] options allowing to select which info for paths and points (e.g. name, position etc.) should be exported
+  - [ ] paths & points as fixture for box2d
 
 ### Final optimisation to do:
 - [ ] switch drawing points with vectors to drawing svg or png

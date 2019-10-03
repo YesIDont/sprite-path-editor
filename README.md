@@ -43,6 +43,7 @@ Online sprite's paths editor allowing to create vector data for game physics eng
   - [ ] show only selected:
     - [ ] paths
     - [ ] points
+  - [ ] join selected paths into one path
 - [ ] selection tool allowing to select points:
   - [ ] single points
   - [ ] multiple points

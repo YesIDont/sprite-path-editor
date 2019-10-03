@@ -4,6 +4,7 @@ const LoadedImage = function( path ) {
   this.svg = '';
   this.paths = [];
   this.src = path;
+  this.isVisible = true
   this.image.onload = () => {
     let tempCanvas = document.createElement('canvas');
     let ctx = tempCanvas.getContext('2d');
@@ -57,7 +58,12 @@ LoadedImage.prototype.arePathsLoaded = function() {
   return this.paths.length > 0
 }
 
+LoadedImage.prototype.isVisibleSwitch = function() {
+  this.isVisible = !this.isVisible
+}
+
 LoadedImage.prototype.draw = function() {
+  if( !this.isVisible ) return
   c.save();
   const { image } = this;
   const { width, height } = image;

@@ -85,6 +85,11 @@
           <span class='bg-green'></span>
         </span>
 
+        <div class='single-option' id='image-display-on-off'>
+          <input type="checkbox"> <span>Switch displaying image ON / OFF</span>
+          <!-- <div class='description'>Check this if you don't wan't your paths to be displayed in their own, randomly assigned color.</div> -->
+        </div>
+
         <div class='single-option' id='paths-color-override'>
           <input type="checkbox"> <span>Override paths colors with default color</span>
           <div class='description'>Check this if you don't wan't your paths to be displayed in their own, randomly assigned color.</div>
@@ -166,6 +171,10 @@
         mouse.selection.removeSelected();
         selectAll.checked = false;
       });
+
+      // switch displaying image on / off
+      get('#image-display-on-off input')[0].checked = true
+      get('#image-display-on-off input')[0].on('click', () => loadedImage.isVisibleSwitch())
 
       // turn on/of paths random colors override
       let pathsOverride = get('#paths-color-override input')[0];

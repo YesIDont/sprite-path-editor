@@ -116,16 +116,22 @@ Point.prototype.draw = function( customColor ) {
       stroke: customColor ? customColor.stroke : SETTINGS.colors.point.selected.stroke,
       fill: SETTINGS.colors.point.selected.fill
     });
-    Draw.circle( x, y, r - 1, {
-      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
-      fill: SETTINGS.colors.point.selected.stroke
-    });
+    // Draw.circle( x, y, r - 1, {
+    //   stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
+    //   // fill: SETTINGS.colors.point.selected.stroke
+    //   fill: 'rgb( 255, 255, 255 )'
+    // });
   }
-  
-  else {
+  else if( this.isHighlighted ) {
     Draw.circle( x, y, r, {
       stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
       fill: SETTINGS.colors.point.fill
+    });    
+  }
+  else {
+    Draw.circle( x, y, r, {
+      stroke: customColor ? customColor.stroke : SETTINGS.colors.point.stroke,
+      // fill: SETTINGS.colors.point.fill
     });
   }
 

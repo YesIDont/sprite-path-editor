@@ -1,3 +1,5 @@
+function log( ...i ) { console.log( ...i )}
+
 const on = function( element, event, callback, bubble ) {
   element.addEventListener( event, callback, bubble || false )
 };
@@ -73,19 +75,12 @@ get.pointUi = function( item ) {
   return get(`.path.id-${ item.parent.id } .point.id${ item.id }`)
 }
 
-const add = function( element, content ) {
-  let el = document.createElement( element );
-  
-  if( typeof content === 'string' ) {
-    
-  }
-}
-
 const wait = function( condition, callback, time ) {
+  let t = time || 1;
   setTimeout(() => {
     if( condition() ) callback()
-    else wait( condition, callback, time )
-  }, 1);
+    else wait( condition, callback, t )
+  }, t);
 }
 
 let utils = {
@@ -135,7 +130,14 @@ function element( options ) {
   if( options.id         ) element.id        = options.id;
   if( options.background ) element.style.background = options.background;
   if( options.onclick    ) on( element, 'click', options.onclick );
-  
+  if( options.type       ) element.type = options.type
+  if( options.style ) {
+    for( let key in options.style ) {
+      if( options.style.hasOwnProperty( key )) {
+        element.style[ key ] = options.style[ key ]
+      }
+    }
+  }
 
   return element
 }
@@ -148,13 +150,17 @@ function ul( options ) {
   return element({ ...options, element:'ul' })
 }
 
+function li( options ) {
+  return element({ ...options, element:'li' })
+}
+
 function span( options ) {
   return element({ ...options, element:'span' })
 }
 
 function input( options ) {
   if( !options.type ) options.type = 'checkbox';
-  return element({ ...options, element:'span' })
+  return element({ ...options, element:'input' })
 }
 
 function button( options ) {

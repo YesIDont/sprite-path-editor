@@ -173,22 +173,26 @@ button {
   background-size: 100%;
 }
 /* line 20, sass/_inputSwitch.sass */
+.switch.half-selected + span {
+  background-image: url(../img/icons/radio-half-selected.svg) !important;
+}
+/* line 23, sass/_inputSwitch.sass */
 .switch:checked + span {
   background-image: url(../img/icons/radio-selected.svg);
 }
-/* line 24, sass/_inputSwitch.sass */
+/* line 27, sass/_inputSwitch.sass */
 .switch.visibility + span {
   background-image: url(../img/icons/eye-open.svg);
 }
-/* line 27, sass/_inputSwitch.sass */
+/* line 30, sass/_inputSwitch.sass */
 .switch.visibility:checked + span {
   background-image: url(../img/icons/eye.svg);
 }
-/* line 31, sass/_inputSwitch.sass */
+/* line 34, sass/_inputSwitch.sass */
 .switch.expansion + span {
   background-image: url(../img/icons/chevron-right.svg);
 }
-/* line 34, sass/_inputSwitch.sass */
+/* line 37, sass/_inputSwitch.sass */
 .switch.expansion:checked + span {
   background-image: url(../img/icons/chevron-down.svg);
 }

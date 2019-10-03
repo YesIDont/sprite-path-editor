@@ -1,72 +1,126 @@
-const Path = function( points, id, name ) {
-  this.type = 'path'; // path
-  // reference to parent object
-  this.parent = {};
+const Path = function( coordintates, id, parent ) {
+  this.type = 'path';
+  this.parent = parent;
   this.id = id || 0;
-  this.name = name || '';
-  this.points = points;
-  let color = randomRGB();
-  this.stroke = color;
+  this.name = `Path :: ${ coordintates.length }` || '';
+  
+  let color = randomRGB()
+  this.stroke = color
   this.fill = color.replace(
     /\d{1,3}\, 1 \)/,
     '125, 0.3 )'
-  );
-  this.isSelected = false;
-  this.isHighlighted = false;
-  this.isVisible = true;
-  this.AABB = this.getAABB();
-};
+  )
+  
+  this.isSelected = false
+  this.isHighlighted = false
+  this.isVisible = true
 
-Path.prototype.select = function() {
-  this.isSelected = true;
-  this.points.forEach( p => p.select() );
-  return this
-};
+  this.ui = ListItem( this, color )
 
-Path.prototype.unSelect = function() {
-  this.isSelected = false;
-  this.points.forEach( p => p.unSelect() );
+  // add points listing
+  let pointsList = ul({ class: 'points' });
+  this.points = coordintates.map(( p, i ) => {
+    let point = new Point( p.x, p.y, i, color, this )
+    wait(
+      () => point.ui !== undefined,
+      () => pointsList.appendChild( point.ui.li )
+    )
+    return point
+  })
+  this.ui.li.appendChild( pointsList );
+
+  this.AABB = this.getAABB()
+  
+}
+
+Path.prototype.hasAllSelected = function() {
+  return this.points.every( p => p.isSelected )
+}
+
+Path.prototype.hasSomeSelected = function() {
+  return this.points.some( p => p.isSelected )
+}
+
+Path.prototype.hasNoneSelected = function() {
+  return this.points.every( p => !p.isSelected )
+}
+
+Point.prototype.check = function() {
+  this.ui.selection.checked = true;
   return this
-};
+}
+
+Point.prototype.unCheck = function() {
+  this.ui.selection.checked = false
+  return this
+}
+
+Path.prototype.setHalfSelection = function() {
+  this.ui.selection.className = 'switch selection half-selected'
+  return this
+}
+
+Path.prototype.removeHalfSelection = function() {
+  this.ui.selection.className = 'switch selection'
+  return this
+}
+
+Path.prototype.select = function( skipAllPoints ) {
+  this.isSelected = true
+  this.ui.selection.checked = true;
+  // mouse.selection.add( this )
+  if( !skipAllPoints ) this.points.forEach( p => p.select() )
+  this.removeHalfSelection()
+  return this
+}
+
+Path.prototype.unSelect = function( skipAllPoints ) {
+  this.isSelected = false
+  this.ui.selection.checked = false
+  // mouse.selection.remove( this )
+  if( !skipAllPoints ) this.points.forEach( p => p.unSelect() )
+  this.removeHalfSelection()
+  return this
+}
 
 Path.prototype.show = function( pointTriger ) {
-  this.isVisible = true;
-  if( !pointTriger ) this.points.forEach( p => p.show() );
+  this.isVisible = true
+  if( !pointTriger ) this.points.forEach( p => p.show() )
   return this
-};
+}
 
 Path.prototype.hide = function() {
-  this.isVisible = false;
-  this.points.forEach( p => p.hide() );
+  this.isVisible = false
+  this.points.forEach( p => p.hide() )
   return this
-};
+}
 
 Path.prototype.remove = function() {
-  let index = this.parent.findIndex( i => i.id === this.id );
-  this.parent.splice( index, 1 );
-};
+  this.ui.li.remove()
+  this.parent.paths = this.parent.paths.filter( i => i.id !== this.id )
+}
 
 Path.prototype.getAABB = function() {
 
   let topLeft = {
     x: this.points[0].x,
     y: this.points[0].y
-  };
+  }
 
   let bottomRight = {
     x: this.points[0].x,
     y: this.points[0].y
-  };
+  }
 
   this.points.forEach( p => {
     // lowest x and y
-    topLeft.x = Math.min( topLeft.x, p.x );
-    topLeft.y = Math.min( topLeft.y, p.y );
+    topLeft.x = Math.min( topLeft.x, p.x )
+    topLeft.y = Math.min( topLeft.y, p.y )
 
     // hightest x and y
-    bottomRight.x = Math.max( bottomRight.x, p.x );
-    bottomRight.y = Math.max( bottomRight.y, p.y );
-  });
+    bottomRight.x = Math.max( bottomRight.x, p.x )
+    bottomRight.y = Math.max( bottomRight.y, p.y )
+  })
 
   return new AABB(
     topLeft.x,
@@ -81,7 +135,7 @@ Path.prototype.getAABB = function() {
 Path.prototype.draw = function() {
   if( !this.isVisible ) return
 
-  let color;
+  let color
 
   if( this.isSelected ) color = {
     stroke: SETTINGS.colors.overridePathsColors
@@ -103,11 +157,11 @@ Path.prototype.draw = function() {
     : this.fill
   }
 
-  this.AABB.draw();
+  this.AABB.draw()
 
-  Draw.polygon( this.points, color );
+  Draw.polygon( this.points, color )
 
   this.points.forEach( point =>  point.draw( color ))
 
   return this
-};
+}

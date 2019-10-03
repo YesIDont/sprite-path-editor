@@ -1,104 +1,56 @@
 function ListItem( i, color ) {
-  // i: item
+  // i: path or point
 
-  const { id, name, parent } = i;
+  let ui = {}
 
-  let li = document.createElement('li');
-  li.innerHTML = `
-    <input type='checkbox' id='${ id }' class='switch selection'/>
-    <span></span>
+  let _li = ui.li = li({
+    id: i.id,
+    class: `${ i.type } id-${ i.id } children-v-middle`
+  })
 
-    <span class='path-color' style='background: ${ color || i.stroke }'></span>
-
-    ${ i.type === 'path' ?
-      `
-        <input type='checkbox' id='${ id }' class='switch expansion'/>
-        <span></span>
-      `
-      : ''
+  ui.selection = input ({
+    id: i.id,
+    class: 'switch selection',
+    onclick: function( e ) {
+      if( e.target.checked ) i.select()
+      else i.unSelect()
     }
+  })
+  ui.selectionSpan = span()
 
-    <span class='name'>${ name }</span>
-
-    <input type='checkbox' id='${ id }' class='switch visibility'/>
-    <span></span>
-  `;
-
-  li.className = `id-${ id } ${ i.type } children-v-middle`;
-  li.id = id;
-
-
+  ui.marker = span  ({
+    style: { background: color },
+    class: 'path-color'
+  })
 
   if( i.type === 'path' ) {
-    // select / unselect path
-    li.getElementsByClassName('selection')[0].on( 'click', e => {
-        if( e.target.checked ) {
-          i.select();
-          mouse.selection.add( i );
-
-          get(`.path.id-${ id } .selection`).forEach( point => point.checked = true )
-        }
-        else {
-          i.unSelect();
-          mouse.selection.remove( i );
-
-          get(`.path.id-${ id } .selection`).forEach( point => point.checked = false )
-        }
-    })
-
-    // show / hide path
-    li.getElementsByClassName('visibility')[0].on( 'click', e => {
-        if( e.target.checked ) {
-          i.hide();
-          get(`.path.id-${ id } .visibility`).forEach( point => point.checked = true )
-        }
-        else {
-          i.show()
-          get(`.path.id-${ id } .visibility`).forEach( point => point.checked = false )
-        }
-    })
+    ui.listExpander = input ({ id: i.id, class: 'switch expansion' })
+    ui.listExpanderSpan = span()
   }
 
-  else if( i.type === 'point' ) {
-    // select / unselect point
-    li.getElementsByClassName('selection')[0].on( 'click', e => {
-        if( e.target.checked ) {
-          i.select();
-          mouse.selection.add( i );
-        }
-        else {
-          i.unSelect();
-          mouse.selection.remove( i );
-        }
-    });
+  ui.name = span  ({ class: 'name' })
+  ui.name.innerHTML = i.name
 
-    i.select = function() {
-      i.isSelected = true;
-      li.getElementsByClassName('selection')[0].checked = true;
-      return i
+  ui.visibility = input ({
+    id: i.id,
+    class: 'switch visibility',
+    onclick: function( e ) {
+      if( e.target.checked ) i.hide()
+      else i.show()
     }
+  })
+  ui.visibilitySpan = span()
 
-    i.unSelect = function() {
-      i.isSelected = false;
-      li.getElementsByClassName('selection')[0].checked = false;
-      return i
-    }
-
-    i.remove = function() {
-      let index = parent.points.findIndex( p => p.id === id );
-      parent.points.splice( index, 1 );
-    }
-
-    // show / hide point
-    li.getElementsByClassName('visibility')[0].on( 'click', e => {
-        if( e.target.checked ) i.hide()
-
-        else {
-          i.show();
-          parent.show( true );
-        }
-    })
+  _li.appendChild( ui.selection )
+  _li.appendChild( ui.selectionSpan )
+  _li.appendChild( ui.marker )
+  if( i.type === 'path' ) {
+    _li.appendChild( ui.listExpander ) 
+    _li.appendChild( ui.listExpanderSpan )
   }
+  _li.appendChild( ui.name )
+  _li.appendChild( ui.visibility )
+  _li.appendChild( ui.visibilitySpan )
 
-  return li
+  return ui
 }

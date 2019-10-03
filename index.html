@@ -112,6 +112,7 @@
     <script src='js/requestAnimationFrame.js'></script>
     <script src='js/canvas.js'></script>
     <script src='js/draw.js'></script>
+    <script src='js/components/ListItem.js'></script>
     <script src='js/point.js'></script>
     <script src='js/AABB.js'></script>
     <script src='js/path.js'></script>
@@ -120,8 +121,7 @@
     <script src='js/selection.js'></script>
     <script src='js/mouse.js'></script>
     <script src="js/canvas-mouse-events.js"></script>
-    <script src='js/tools.js'></script>
-    <script src='js/components/ListItem.js'></script>
+    <script src='js/tools.js'></script>    
     <script src="js/dragRangeSlider.js"></script>
 
     <script>
@@ -129,20 +129,6 @@
       get('.scrollbar').forEach( el => {
         scrolls[ el ] = new SimpleBar( el, { forceVisible: true, autoHide: false } )
       })
-
-      pathsList.addPath = function( item ) {
-
-        let li = ListItem( item );
-
-        // add points listing
-        let points = ul({ class: 'points' });
-        item.points.forEach( p => {
-          points.appendChild( ListItem( p, item.color ))
-        })
-        li.appendChild( points );
-        
-        this.appendChild( li )
-      }
 
       // change background color
       get('.workspace-settings .background span').forEach(
@@ -155,22 +141,14 @@
       selectAll.on( 'click', e => {
         let listItems = Array.from( pathsList.children );
 
-        if( e.target.checked ) {
-          loadedImage.paths.forEach( p => {
-            p.select();
-            mouse.selection.add( p )
-          })
-          listItems.forEach( i => {
-            i.getElementsByClassName('selection')[0].checked = true
-          })
-        }
-        else {
-          loadedImage.paths.forEach( p => p.unSelect())
-          listItems.forEach( i => {
-            i.getElementsByClassName('selection')[0].checked = false
-          })
-          mouse.selection.clear()
-        }
+        loadedImage.paths.forEach( p => {
+          if( e.target.checked ) p.select()
+          else {
+            p.unSelect()
+            mouse.selection.clear()
+          }
+          p.removeHalfSelection()
+        })
       });
       
       
@@ -179,14 +157,10 @@
       hideAll.on( 'click', e => {
         let listItems = Array.from( pathsList.children );
 
-        if( e.target.checked ) {
-          loadedImage.paths.forEach( p => p.hide() )
-          get('.visibility').forEach( v => v.checked = true )
-        }
-        else {
-          loadedImage.paths.forEach( p => p.show() )
-          get('.visibility').forEach( v => v.checked = false )
-        }
+        loadedImage.paths.forEach( p => {
+          if( e.target.checked ) p.hide()
+          else p.show()
+        })
       });      
 
       // remove all selected
@@ -253,7 +227,7 @@
         // add computed paths to 'Paths' panel
         wait(
           () => loadedImage.arePathsLoaded(),
-          () => loadedImage.paths.forEach( p => pathsList.addPath( p ))
+          () => loadedImage.paths.forEach( p => pathsList.appendChild( p.ui.li ))
         )
 
         canvas.offset = { x: 365, y: 148 };

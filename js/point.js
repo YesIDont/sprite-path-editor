@@ -1,7 +1,8 @@
-const Point = function( x, y, parent ) {
-  this.parent = parent || undefined;
-  this.id = undefined;
-  this.type = 'point'; // point
+const Point = function( x, y, id, color, parent ) {
+  this.parent = parent;
+  this.id = id;
+  this.type = 'point';
+  this.name = `Point ${id}`
   this.x = x || 0;
   this.y = y || 0;
   // radius
@@ -9,18 +10,55 @@ const Point = function( x, y, parent ) {
   this.isSelected = false;
   this.isHighlighted = false;
   this.isVisible = true;
+  this.ui = ListItem( this, color )
   return this
 };
 
-// Point.prototype.select = function() {
-//   this.isSelected = true;
-//   return this
-// }
+Point.prototype.remove = function() {
+  this.ui.li.remove()
+  mouse.selection.remove( this )
 
-// Point.prototype.unSelect = function() {
-//   this.isSelected = false;
-//   return this
-// }
+  this.parent.points = this.parent.points.filter( p => p.id !== this.id )
+  this.parent.removeHalfSelection()
+  if( this.parent.points.length < 1 ) this.parent.remove()
+}
+
+Point.prototype.check = function() {
+  this.ui.selection.checked = true;
+  return this
+}
+
+Point.prototype.unCheck = function() {
+  this.ui.selection.checked = false
+  return this
+}
+
+Point.prototype.select = function() {
+  this.isSelected = true
+  this.check()
+  mouse.selection.add( this )
+
+  let parent = this.parent
+  if( parent.hasAllSelected() && !parent.isSelected ) {
+    parent.select( 'skipAllPoints' )
+    parent.removeHalfSelection()
+  }
+  else parent.setHalfSelection()
+
+  return this
+}
+
+Point.prototype.unSelect = function() {
+  this.isSelected = false;
+  this.unCheck()
+  mouse.selection.remove( this )
+
+  this.parent.unSelect( 'skipAllPoints' )
+  if( this.parent.hasSomeSelected()) this.parent.setHalfSelection()
+  else this.parent.removeHalfSelection()
+  
+  return this
+}
 
 Point.prototype.show = function() {
   this.isVisible = true;
@@ -31,11 +69,6 @@ Point.prototype.hide = function() {
   this.isVisible = false;
   return this
 }
-
-// Point.prototype.remove = function() {
-//   let index = this.parent.points.findIndex( p => p.id === this.id );
-//   this.parent.points.splice( index, 1 );
-// }
 
 Point.prototype.set = function( x, y ) {
   this.x = x;

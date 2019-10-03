@@ -103,10 +103,10 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     let lastNumber = 0;
     for( let i = 0; i < path.length; i++ ) {
       if( i % 2 !== 0 ) {
-        points.push( new Point(
-          parseFloat(lastNumber),
-          parseFloat(path[i])
-        ));
+        points.push({
+          x: parseFloat(lastNumber),
+          y: parseFloat(path[i])
+        });
       }
       else {
         lastNumber = path[ i ];
@@ -116,7 +116,7 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
     // remove the last point that is used in svg to line the end of the path to it's beggining
     points.pop()
 
-    return new Path( points, index, `Path ${index}` )
+    return new Path( points, index, this )
   })
 
   // remove duplicate paths
@@ -144,20 +144,6 @@ LoadedImage.prototype.getPaths = function( svgStr ) {
       }
     }
   };
-
-  // cicle again all paths and reset their id's to mach
-  paths.forEach(( p, i ) => {
-    p.id = i;
-    p.name = `Path ${i}`;
-    p.parent = paths;
-
-    // set name for each point and reference to parent path
-    p.points.forEach(( point, i ) => {
-      point.id = i;
-      point.name = `Point ${i}`;
-      point.parent = p;
-    })
-  });
 
   return paths
 }

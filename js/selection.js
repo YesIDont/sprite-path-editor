@@ -7,19 +7,10 @@ const Selection = function( parrentReference ) {
     return this
   };
 
-  this.remove = function( beingRemoved ) {
-    let index = this.items.findIndex( i => {
-      if( i.type === 'path') {
-        return i.id === beingRemoved.id && i.type === beingRemoved.type        
-      }
-      else {
-        return i.id === beingRemoved.id
-          && i.type === beingRemoved.type
-            && i.parent.id === beingRemoved.parent.id
-      }
-    })
+  this.remove = function( pointBeingRemoved ) {
+    let b = pointBeingRemoved
 
-    this.items.splice( index, 1 );
+    this.items = this.items.filter( a => a.parent.id !== b.parent.id || a.id !== b.id )
   };
 
   this.clear = function() {
@@ -27,24 +18,11 @@ const Selection = function( parrentReference ) {
     return this
   };
 
+  this.isEmpty = function() { return this.items.length < 1 };
+
   this.removeSelected = function() {
-    this.items.forEach( i => {
-      // remove element from UI paths list
-      if( i.type === 'path' ) {
-        get(`.path.id-${ i.id }`)[ 0 ].remove()
-
-      }
-      else {
-        get(`.path.id-${ i.parent.id } .point.id-${ i.id }`)[ 0 ].remove()
-      }
-      i.remove()
-    })
-    this.clear()
+    this.items.forEach( i => i.remove())
   }
-
-  this.isEmpty = function() {
-    return this.items.length <= 0
-  };
 
   this.forEach = function( callback ) {
     this.items.forEach( callback );

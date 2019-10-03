@@ -20,6 +20,7 @@ Point.prototype.remove = function() {
 
   this.parent.points = this.parent.points.filter( p => p.id !== this.id )
   this.parent.removeHalfSelection()
+  this.parent.updatePointsNumber()
   if( this.parent.points.length < 1 ) this.parent.remove()
 }
 
@@ -62,11 +63,15 @@ Point.prototype.unSelect = function() {
 
 Point.prototype.show = function() {
   this.isVisible = true;
+  this.ui.visibility.checked = false
+  this.parent.show( 'skipAllPoints' )
   return this
 }
 
 Point.prototype.hide = function() {
   this.isVisible = false;
+  this.ui.visibility.checked = true
+  if( this.parent.points.every( p => !p.isVisible )) this.parent.hide( 'skipAllPoints' )
   return this
 }
 
@@ -143,11 +148,11 @@ Point.prototype.isCollidingWithMouse = function() {
 
   // point's coords
   let pos = this.getCanvasPos();
-  pos.x += canvas.offset.x + (utils.get.window.width() - canvas.width);
+  pos.x += canvas.offset.x + (get.window.width() - canvas.width);
   pos.y += canvas.offset.y;
 
   // return bool indicating if Mouse position collides with point
-  return this.r > utils.compute.twoPointsDistance( mouse, pos )
+  return this.r > get.twoPointsDistance( mouse, pos )
 }
 
 Point.prototype.isCollidingRectangle = function( r, offset ) {

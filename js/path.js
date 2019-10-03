@@ -2,7 +2,6 @@ const Path = function( coordintates, id, parent ) {
   this.type = 'path';
   this.parent = parent;
   this.id = id || 0;
-  this.name = `Path :: ${ coordintates.length }` || '';
   
   let color = randomRGB()
   this.stroke = color
@@ -30,7 +29,7 @@ const Path = function( coordintates, id, parent ) {
   this.ui.li.appendChild( pointsList );
 
   this.AABB = this.getAABB()
-  
+  this.updatePointsNumber()
 }
 
 Path.prototype.hasAllSelected = function() {
@@ -83,15 +82,17 @@ Path.prototype.unSelect = function( skipAllPoints ) {
   return this
 }
 
-Path.prototype.show = function( pointTriger ) {
+Path.prototype.show = function( skipAllPoints ) {
   this.isVisible = true
-  if( !pointTriger ) this.points.forEach( p => p.show() )
+  this.ui.visibility.checked = false
+  if( !skipAllPoints ) this.points.forEach( p => p.show() )
   return this
 }
 
-Path.prototype.hide = function() {
+Path.prototype.hide = function( skipAllPoints ) {
   this.isVisible = false
-  this.points.forEach( p => p.hide() )
+  this.ui.visibility.checked = true
+  if( !skipAllPoints ) this.points.forEach( p => p.hide() )
   return this
 }
 
@@ -130,6 +131,10 @@ Path.prototype.getAABB = function() {
     // height
     bottomRight.y - topLeft.y    
   )
+}
+
+Path.prototype.updatePointsNumber = function() {
+  this.ui.name.innerHTML = this.name = `Path | ${ this.points.length }`
 }
 
 Path.prototype.draw = function() {

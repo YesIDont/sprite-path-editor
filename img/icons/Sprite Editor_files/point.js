@@ -104,11 +104,11 @@ Point.prototype.isCollidingWithMouse = function() {
 
   // point's coords
   let pos = this.getCanvasPos();
-  pos.x += canvas.offset.x + (utils.get.window.width() - canvas.width);
+  pos.x += canvas.offset.x + (get.window.width() - canvas.width);
   pos.y += canvas.offset.y;
 
   // return bool indicating if Mouse position collides with point
-  return this.r > utils.compute.twoPointsDistance( mouse, pos )
+  return this.r > get.twoPointsDistance( mouse, pos )
 }
 
 Point.prototype.isCollidingRectangle = function( r, offset ) {

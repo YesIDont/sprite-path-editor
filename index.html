@@ -154,9 +154,7 @@
       
       // show / hide all
       let hideAll = get('.panel.paths p.list-actions #hide-all')[0];
-      hideAll.on( 'click', e => {
-        let listItems = Array.from( pathsList.children );
-
+      hideAll.on( 'click', function( e ){
         loadedImage.paths.forEach( p => {
           if( e.target.checked ) p.hide()
           else p.show()
